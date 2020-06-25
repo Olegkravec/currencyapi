@@ -20,3 +20,9 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::group(['prefix' => 'users'], function () {
+    Route::get('/', 'Admin\UsersController@index')->name('users_index');
+    Route::get('/edit/{id}', 'Admin\UsersController@edit')->name('users_edit');
+    Route::get('/create', 'Admin\UsersController@index')->name('users_create');
+});
