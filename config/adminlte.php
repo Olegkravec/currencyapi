@@ -231,12 +231,11 @@ return [
     */
 
     'menu' => [
-        ['header' => 'account_settings'],
         [
             'text'        => "Users",
             'url'         => '/users',
             'icon'        => 'far fa-fw fa-file',
-            'permissions' => 'can see all users',
+            'permissions' => 'see all users',
         ],
     ],
 
