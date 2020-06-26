@@ -31,8 +31,21 @@ class CreateBaseRolesSeeder extends Seeder
             $permission = Permission::firstOrCreate(['name' => 'edit users']);
             array_push($permission_stack, $permission);
         }
+        {
+            $permission = Permission::firstOrCreate(['name' => 'see permissions']);
+            array_push($permission_stack, $permission);
+        }
+        {
+            $permission = Permission::firstOrCreate(['name' => 'edit users permissions']);
+            array_push($permission_stack, $permission);
+        }
 
         $i_am_super_admin = \App\User::find(1);
+        $i_am_super_admin->syncPermissions($permission_stack);
+        $i_am_super_admin->assignRole('client', 'admin');
+
+        // Granting accesses for first test user
+        $i_am_super_admin = \App\User::find(2);
         $i_am_super_admin->syncPermissions($permission_stack);
         $i_am_super_admin->assignRole('client', 'admin');
     }

@@ -12,7 +12,7 @@ class UsersController extends Controller
 {
     public function index(){
         return view("users.index")->with([
-            "users" => User::paginate(30)
+            "users" => User::disableCache()->paginate(30)
         ]);
     }
 
@@ -43,7 +43,6 @@ class UsersController extends Controller
             flash("Successfully updated!")->success();
         else
             flash("Something went wrong!")->error();
-
 
         return redirect()->back();
     }

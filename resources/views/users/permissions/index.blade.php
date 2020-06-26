@@ -1,13 +1,12 @@
 @extends('adminlte::page')
 
-@section('title', 'Users ' . env("APP_NAME"))
+@section('title', 'Permission list ' . env("APP_NAME"))
 
 @section('content_header')
-    {{ $users->links() }}
     <div class="no-margin pull-right">
         <a href="{{ route('users_create') }}"><div class="btn btn-success btn-xs">Create new user</div></a>
     </div>
-    <h1>Users list</h1>
+    <h1>Permission list for user <b>{{ $user->name }}</b> </h1>
 @stop
 
 @section('content')
@@ -21,22 +20,23 @@
                     <tr>
                         <th>ID</th>
                         <th>Name</th>
-                        <th>Email</th>
+                        <th>Guard</th>
                         <th>Created At</th>
                         <th>Actions</th>
                     </tr>
-                    @foreach($users as $user)
-                        @if($user->id === 1)
-                            @continue {{-- HIDE SUPER ADMIN --}}
-                        @endif
-                        <tr class="users users-{{$user->id}}">
-                            <td>{{$user->id}}</td>
-                            <td>{{$user->name}}</td>
-                            <td>{{$user->email}}</td>
-                            <td>{{$user->created_at}}</td>
+                    @foreach($permissions as $permission)
+                        <tr class="users users-{{$permission->id}}">
+                            <td>{{$permission->id}}</td>
+                            <td>{{$permission->name}}</td>
+                            <td>{{$permission->guard_name}}</td>
+                            <td>{{$permission->created_at}}</td>
                             <td>
-                                @can("edit users")
-                                    <a href="{{ route('users_edit', ['id' => $user->id]) }}" class="btn btn-xs btn-primary">Edit user</a>
+                                @can("edit users permissions")
+                                    <form method="post" action="{{ route('users_permission_revoke', ['user_id' => $user->id, 'permission_id' => $permission->id]) }}">
+                                        @csrf
+                                        @method('delete')
+                                        <button class="btn btn-xs btn-danger" type="submit">Revoke Permission</button>
+                                    </form>
                                 @endcan
 
                                 @can("see permissions")
