@@ -1,12 +1,11 @@
 @extends('adminlte::page')
 
-@section('title', 'Permission list ' . env("APP_NAME"))
+@section('title', 'Grant permission ' . env("APP_NAME"))
 
 @section('content_header')
-    <div class="no-margin pull-right">
-        <a href="{{ route('users_permission_grant', ["user_id" => $user->id]) }}"><div class="btn btn-success btn-xs">Grant new permission</div></a>
-    </div>
-    <h1>Permission list for user <b>{{ $user->name }}</b> </h1>
+    <h6><a href="{{ route('users_permission', ['id' => $user->id]) }}"><- return to {{ $user->name }}'s permission list</a></h6>
+
+    <h1>Grant permission to user <b>{{ $user->name }}</b> </h1>
 @stop
 
 @section('content')
@@ -25,6 +24,9 @@
                         <th>Actions</th>
                     </tr>
                     @foreach($permissions as $permission)
+                        @if($user->hasPermissionTo($permission->name))
+                            @continue
+                        @endif
                         <tr class="users users-{{$permission->id}}">
                             <td>{{$permission->id}}</td>
                             <td>{{$permission->name}}</td>
@@ -32,10 +34,10 @@
                             <td>{{$permission->created_at}}</td>
                             <td>
                                 @can("edit users permissions")
-                                    <form method="post" action="{{ route('users_permission_revoke', ['user_id' => $user->id, 'permission_id' => $permission->id]) }}">
+                                    <form method="post" action="{{ route('users_permission_create', ['user_id' => $user->id, 'permission_id' => $permission->id]) }}">
                                         @csrf
-                                        @method('delete')
-                                        <button class="btn btn-xs btn-danger" type="submit">Revoke Permission</button>
+                                        @method('post')
+                                        <button class="btn btn-xs btn-success" type="submit">Grant Permission</button>
                                     </form>
                                 @endcan
                             </td>

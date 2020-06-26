@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\GrantPermissionToUserRequest;
 use App\Http\Requests\PermissionRevokeRequest;
 use App\User;
 use Illuminate\Http\Request;
@@ -20,6 +21,28 @@ class UserPermissionsController extends Controller
             "user" => $user,
             "permissions" => $user->getAllPermissions()
         ]);
+    }
+
+    public function permission_grant($user_id){
+        if(empty($user = User::find($user_id))){
+            flash("User is not exist")->error();
+            return redirect()->back();
+        }
+
+        return view("users.permissions.grant")->with([
+            "user" => $user,
+            "permissions" => Permission::all()
+        ]);
+    }
+
+
+    public function permission_create(GrantPermissionToUserRequest $request, $user_id, $permission_id){
+        $user = User::find($user_id);
+        $user->givePermissionTo(Permission::find($permission_id));
+
+        flash("Permission successfully granted")->success();
+
+        return redirect()->back();
     }
 
 
