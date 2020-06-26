@@ -10,19 +10,6 @@
     <h1>Users list</h1>
 @stop
 
-@section('js')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
-
-    <script>
-        var clipboard = new ClipboardJS('.copy');
-
-        function open_linkedBoxes( element, id ){
-            // jQuery("#linkedBox_description_place"+id).html(element.getAttribute("data_desc"));
-            $('#linkedBox_'+id).modal();
-        }
-    </script>
-@stop
-
 @section('content')
     @include('flash::message')
     <div class="box box-primary">

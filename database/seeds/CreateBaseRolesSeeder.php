@@ -21,7 +21,7 @@ class CreateBaseRolesSeeder extends Seeder
 //        \DB::statement("ALTER TABLE users AUTO_INCREMENT = 1");
         $permission_stack = [];
         $admin = Role::firstOrCreate(['name' => 'admin']);
-        $admin = Role::firstOrCreate(['name' => 'client']);
+        $client = Role::firstOrCreate(['name' => 'client']);
 
         {
             $permission = Permission::firstOrCreate(['name' => 'see all users']);
