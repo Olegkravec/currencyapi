@@ -43,6 +43,9 @@
                                         <a href="{{ route('users_permission', ['id' => $user->id]) }}" class="btn btn-xs btn-primary">Show permissions</a>
                                 @endcan
 
+                                @can("can chatting with others")
+                                        <a href="{{ route('users_permission', ['id' => $user->id]) }}" class="btn btn-xs btn-primary">Start conversation</a>
+                                @endcan
                             </td>
                         </tr>
                     @endforeach

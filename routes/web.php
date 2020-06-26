@@ -28,11 +28,15 @@ Route::group(['middleware' => ['auth']], function() {
         Route::put('/edit/{id}', 'Admin\UsersController@update')->name('users_update');
         Route::get('/create', 'Admin\UsersController@index')->name('users_create'); // TODO:!+ MethodIsNotImplementedException
 
-
         Route::get('/{id}/permissions', 'Admin\UserPermissionsController@index')->name('users_permission');
         Route::delete('/{user_id}/permissions/{permission_id}', 'Admin\UserPermissionsController@permission_revoke')->name('users_permission_revoke');
         Route::post('/{user_id}/permissions/{permission_id}', 'Admin\UserPermissionsController@permission_create')->name('users_permission_create');
         Route::get('/{user_id}/permissions/grant', 'Admin\UserPermissionsController@permission_grant')->name('users_permission_grant');
+    });
+    Route::group(['prefix' => 'chats', "middleware" => "permission:can chatting with others"], function () {
+        Route::get('/', 'Admin\ChatController@index')->name('chats_index');
+        Route::get('/{chat_id}', 'Admin\ChatController@chats_conversion')->name('chats_conversion');
+        Route::post("/fire/{room_id}", 'Admin\ChatController@fireMessage')->name('chats_fireMessage');
     });
 });
 

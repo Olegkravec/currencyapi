@@ -237,6 +237,12 @@ return [
             'icon'        => 'far fa-fw fa-file',
             'permissions' => 'see all users',
         ],
+        [
+            'text'        => "Chats",
+            'url'         => '/chats',
+            'icon'        => 'far fa-fw fa-file',
+            'permissions' => 'can chatting with others',
+        ],
     ],
 
     /*

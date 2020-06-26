@@ -35,7 +35,6 @@ class UserPermissionsController extends Controller
         ]);
     }
 
-
     public function permission_create(GrantPermissionToUserRequest $request, $user_id, $permission_id){
         $user = User::find($user_id);
         $user->givePermissionTo(Permission::find($permission_id));
@@ -44,7 +43,6 @@ class UserPermissionsController extends Controller
 
         return redirect()->back();
     }
-
 
     public function permission_revoke(PermissionRevokeRequest $request, $user_id, $permission_id){
         $perm = Permission::find($permission_id);

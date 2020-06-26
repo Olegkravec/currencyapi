@@ -39,6 +39,10 @@ class CreateBaseRolesSeeder extends Seeder
             $permission = Permission::firstOrCreate(['name' => 'edit users permissions']);
             array_push($permission_stack, $permission);
         }
+        {
+            $permission = Permission::firstOrCreate(['name' => 'can chatting with others']);
+            array_push($permission_stack, $permission);
+        }
 
         $i_am_super_admin = \App\User::find(1);
         $i_am_super_admin->syncPermissions($permission_stack);
