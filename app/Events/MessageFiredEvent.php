@@ -3,6 +3,7 @@
 namespace App\Events;
 
 use App\Models\RoomsModel;
+use App\User;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -18,15 +19,17 @@ class MessageFiredEvent implements ShouldBroadcastNow
 
     private $room;
     private $message;
+    private $user;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(RoomsModel $room, $message)
+    public function __construct(RoomsModel $room, User $user, $message)
     {
         $this->room = $room;
         $this->message = $message;
+        $this->user = $user;
     }
 
     /**
@@ -41,13 +44,14 @@ class MessageFiredEvent implements ShouldBroadcastNow
 
     public function broadcastAs()
     {
-        return 'message.fired';
+        return 'messageFired';
     }
     public function broadcastWith()
     {
         return [
             'room' => $this->room,
             'message' => $this->message,
+            'user' => $this->user,
         ];
     }
 }

@@ -9,6 +9,7 @@ class PermissionFirewallMiddleware
 {
     /**
      * Handle an incoming request.
+     * Middleware that checks if current user has permission to current scope
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next

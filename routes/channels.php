@@ -19,3 +19,9 @@ Broadcast::channel('room.{room_id}', function ($user, $room_id) {
         "room" => $room_id,
     ];
 });
+Broadcast::channel('laravel_api_database_presence-room.{room_id}', function ($user, $room_id) {
+    return [
+        "user" => $user,
+        "room" => $room_id,
+    ];
+});
