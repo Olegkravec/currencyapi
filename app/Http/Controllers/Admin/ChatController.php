@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Events\MessageFiredEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FireMessageRequest;
+use App\Models\MessagesModel;
 use App\Models\RoomsMembersModel;
 use App\Models\RoomsModel;
 use Illuminate\Http\Request;
@@ -31,7 +32,7 @@ class ChatController extends Controller
      */
     public function chats_conversion($room_id){
         $room = RoomsModel::find($room_id);
-        $messages = $room->getMessages();
+        $messages = $room->getUnsortedMessages();
         $members = $room->getMembersExceptMe();
         $room_name = (count($members) > 1) ? $room->name : $members[0]->name; // Chat name or first member name if not group chat
         return view('chats.conversation')->with([
@@ -52,5 +53,13 @@ class ChatController extends Controller
         $room = RoomsModel::find($room_id);
 
         broadcast(new MessageFiredEvent($room, Auth::user(), $request->validated()));
+
+        {
+            $message = new MessagesModel();
+            $message->room_id = $room_id;
+            $message->user_id = Auth::id();
+            $message->message = $request->validated()['message'];
+            $message->save();
+        }
     }
 }

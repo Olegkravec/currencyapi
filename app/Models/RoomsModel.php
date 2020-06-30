@@ -65,6 +65,13 @@ class RoomsModel extends Model
     public function getMessages(){
         return $this->hasMany('App\Models\MessagesModel', 'room_id', 'id')->orderBy('created_at', "DESC")->get();
     }
+    /**
+     * Get all messages typed in the chat
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getUnsortedMessages(){
+        return $this->hasMany('App\Models\MessagesModel', 'room_id', 'id')->get();
+    }
 
 
 }
