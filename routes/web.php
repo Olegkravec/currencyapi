@@ -22,11 +22,12 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => ['auth']], function() {
+    Route::resource("users", "Admin\UserResourceController");
     Route::group(['prefix' => 'users'], function () {
-        Route::get('/', 'Admin\UsersController@index')->name('users_index');
-        Route::get('/edit/{id}', 'Admin\UsersController@edit')->name('users_edit');
-        Route::put('/edit/{id}', 'Admin\UsersController@update')->name('users_update');
-        Route::get('/create', 'Admin\UsersController@index')->name('users_create'); // TODO:!+ MethodIsNotImplementedException
+//        Route::get('/', 'Admin\UsersController@index')->name('users_index');
+//        Route::get('/edit/{id}', 'Admin\UsersController@edit')->name('users_edit');
+//        Route::put('/edit/{id}', 'Admin\UsersController@update')->name('users_update');
+//        Route::get('/create', 'Admin\UsersController@index')->name('users_create'); // TODO:!+ MethodIsNotImplementedException
 
         Route::get('/{id}/permissions', 'Admin\UserPermissionsController@index')->name('users_permission');
         Route::delete('/{user_id}/permissions/{permission_id}', 'Admin\UserPermissionsController@permission_revoke')->name('users_permission_revoke');

@@ -15,7 +15,7 @@ class UserUpdateAdminRequest extends FormRequest
      */
     public function authorize()
     {
-        $user = User::disableCache()->find($this->route("id"));
+        $user = User::disableCache()->find($this->route("user"));
 
         return !empty($user) and Auth::user()->can("edit users");
     }
@@ -30,7 +30,7 @@ class UserUpdateAdminRequest extends FormRequest
         return [
             'name' => 'required|string',
             'email' => 'required|email:rfc,dns',
-            'password' => 'required|min:6|confirmed',
+            'password' => 'nullable|min:6|confirmed',
         ];
     }
 }

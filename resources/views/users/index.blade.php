@@ -5,7 +5,7 @@
 @section('content_header')
     {{ $users->links() }}
     <div class="no-margin pull-right">
-        <a href="{{ route('users_create') }}"><div class="btn btn-success btn-xs">Create new user</div></a>
+        <a href="{{ route('users.create') }}"><div class="btn btn-success btn-xs">Create new user</div></a>
     </div>
     <h1>Users list</h1>
 @stop
@@ -37,7 +37,7 @@
                             <td>{{$user->created_at}}</td>
                             <td>
                                 @can("edit users")
-                                    <a href="{{ route('users_edit', ['id' => $user->id]) }}" class="btn btn-xs btn-primary">Edit user</a>
+                                    <a href="{{ route('users.edit', ['user' => $user->id]) }}" class="btn btn-xs btn-primary">Edit user</a>
                                 @endcan
 
                                 @can("see permissions")

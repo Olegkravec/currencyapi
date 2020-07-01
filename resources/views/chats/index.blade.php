@@ -3,12 +3,8 @@
 @section('title', 'Chats ' . env("APP_NAME"))
 
 @section('content_header')
-    <div class="no-margin pull-right">
-        <a href="{{ route('users_create') }}"><div class="btn btn-success btn-xs">Start new conversation</div></a>
-    </div>
     <h1>Chat list</h1>
 @stop
-
 
 @section('content')
     @include('flash::message')

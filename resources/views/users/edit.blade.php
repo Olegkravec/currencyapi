@@ -12,7 +12,7 @@
         <div class="box-header with-border">
 
             <div class="box-body table-responsive no-padding">
-                <form method="post" action="{{route("users_update", $user->id)}}">
+                <form method="post" action="{{route("users.update", $user->id)}}">
                     @csrf
                     @method('put')
 

@@ -16,6 +16,7 @@ class AdminChatingMigration extends Migration
         Schema::create("rooms", function (Blueprint $table) {
             $table->unsignedBigInteger('id',true);
             $table->string('name')->nullable();
+            $table->tinyInteger('isGroup')->default('0');
             $table->timestamps();
         });
         Schema::create("room_members", function (Blueprint $table) {
