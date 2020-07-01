@@ -14,8 +14,7 @@ class SignUpAPIRequest extends FormRequest
      */
     public function authorize()
     {
-        $user = User::where("email", $this->input("email"))->first();
-        return empty($user);
+        return true;
     }
 
     /**
@@ -26,7 +25,9 @@ class SignUpAPIRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            "name" => "string",
+            "email" => "email",
+            "password" => "min:6|confirmed",
         ];
     }
 }

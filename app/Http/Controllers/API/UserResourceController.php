@@ -4,10 +4,14 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\SignInAPIRequest;
+use App\Http\Requests\API\SignUpAPIRequest;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserResourceController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -34,9 +38,24 @@ class UserResourceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SignUpAPIRequest $request)
     {
-        //
+        $user = User::where("email", $request->validated()["email"])->disableCache()->first();
+        if(!empty($user)){
+            return response([
+                "status" => "error",
+                "message" => "User already exist",
+            ], 400);
+        }
+        $credentials = $request->validated();
+        $credentials["password"] = bcrypt($credentials["password"]);
+
+        User::create($credentials);
+
+        return response([
+            "status" => "success",
+            "message" => "Created successfully",
+        ], 201);
     }
 
     /**
@@ -58,7 +77,7 @@ class UserResourceController extends Controller
      */
     public function edit($id)
     {
-        //
+
     }
 
     /**
@@ -90,7 +109,8 @@ class UserResourceController extends Controller
             "email" => $request->validated()['email'],
             "password" => $request->validated()['password']
         ];
-        if (! $token = auth()->attempt($credentials)) {
+
+        if (! $token = Auth::guard("api")->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 

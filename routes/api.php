@@ -15,9 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 Route::group(['prefix' => 'v1'], function () {
     Route::post('/signin', 'API\UserResourceController@signin')->name('user.signin');
-    Route::middleware(['auth:api', 'role:client'])->get('/user', function (Request $request) {
-        return $request->user();
-    });
+    Route::resource("users", "API\UserResourceController");
 });
 
 
