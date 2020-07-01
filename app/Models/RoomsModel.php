@@ -23,20 +23,31 @@ class RoomsModel extends Model
     public static function buildConversationModelFor($user_id){
         $response = [
             "rooms" => [],
-            "members" => [],
         ];
-        $rooms = RoomsModel::limit(10)->get();
+
+        $rooms = RoomsModel::join("room_members", "room_members.room_id", "=", "rooms.id")->where("room_members.user_id", $user_id)->get("rooms.*");
         foreach ($rooms as $room){
-            $members = $room->getMembersExceptMe();
+            $members = $room->getMembers();
+
             $conversation = [
                 "room" => $room,
+                "members" => [],
+                "room_name" => "",
             ];
+
             foreach ($members as $member){
                 $user = $member->getMember();
-                if(empty($response['members'][$user->id]))
-                    $response['members'][$user->id] = $user;
+                if($user->id !== Auth::id())
+                    $conversation['room_name'] = $user->name;
+
+                if(empty($conversation['members'][$user->id]))
+                    $conversation['members'][$user->id] = $user;
             }
-            $conversation['room']['messages'] = $room->getMessages();
+
+            if(count($conversation['members']) > 2){
+                $conversation['room_name'] = "Room #{$room->id}";
+            }
+            $conversation['room']['messages'] = $room->getLastMessage();
             $response['rooms'][$room->id] = $conversation;
         }
         return $response;
@@ -64,6 +75,13 @@ class RoomsModel extends Model
      */
     public function getMessages(){
         return $this->hasMany('App\Models\MessagesModel', 'room_id', 'id')->orderBy('created_at', "DESC")->get();
+    }
+    /**
+     * Get all messages typed in the chat
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getLastMessage(){
+        return $this->hasMany('App\Models\MessagesModel', 'room_id', 'id')->orderBy('created_at', "DESC")->limit(1)->get();
     }
     /**
      * Get all messages typed in the chat

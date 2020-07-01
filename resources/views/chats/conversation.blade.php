@@ -7,91 +7,10 @@
 @stop
 
 @section('js')
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
     <script>
-        var root_messages = JSON.parse('{!! str_replace("'", "\\'", $messages) !!}');
-        var app = null;
         window.addEventListener("DOMContentLoaded", function(event) {
-            app = new Vue({
-                el: '#app',
-                data: {
-                    myName: "{{Auth::user()->name}}",
-                    myUId: {{\Illuminate\Support\Facades\Auth::id()}},
-                    messages: JSON.parse('{!! str_replace("'", "\\'", $messages) !!}'),
-                    enteredMessage: "",
-                    channelId: {{$room->id}},
-                    channel: window.Echo.join("room.{{$room->id}}"),
-                    fireUrl: "{{ route('chats_fireMessage', ['room_id' => $room->id]) }}",
-                    activeUsers: [],
-                    isTyping: "",
-                    typingTimer: null
-                },
-                mounted: function () {
-                    this.channel.here(function (e) {
-                        app.activeUsers = (e)
-                    }).joining(function (e) {
-                        app.activeUsers.push(e)
-                    }).leaving(function (e) {
-                        app.activeUsers.splice(app.activeUsers.indexOf(e));
-                    }).listen('.messageFired', (e) => {
-                            console.log(e);
-                            var newMsg = {
-                                created_at: new Date().toGMTString(),
-                                message: e.message.message,
-                                user_id: e.user.id
-                            };
-                            app.messages.push(newMsg);
-                            setTimeout(function () {
-                                document.getElementById( 'bottom' ).scrollIntoView();
-                            }, 500);
-                        }).listenForWhisper('typing', (e) => {
-                            console.log(e);
-                            app.isTyping = e.user + " is typing...";
-                            if(!e.typing)
-                                app.isTyping = ""
-                        });
-                },
-                methods: {
-                    startTyping: function(){
-                        if(!!!app.typingTimer) {
-                            app.typingTimer = setTimeout(function () {
-                                app.channel.whisper('typing', {
-                                    user: this.myName  + " is typing...",
-                                    typing: false
-                                });
-                                app.typingTimer = null;
-                            }, 5000);
-                        }
-                        console.log("Start typing...");
-                        this.channel.whisper('typing', {
-                            user: this.myName,
-                            typing: true
-                        });
-                    },
-                    sendMessage: function () {
-                        var newMsg = {
-                            created_at: 'Sending...',
-                            message: this.enteredMessage,
-                            user_id: this.myUId
-                        };
-
-                        var fireUrl = "{{ route('chats_fireMessage', ['room_id' => $room->id]) }}";
-                        axios.post(fireUrl, {
-                            message: this.enteredMessage,
-                        }).then(function (response) {
-                            app.messages[app.messages.length-1].created_at = new Date().toGMTString();
-                        })
-                            .catch(function (error) {
-                                alert(error);
-                            });
-                        // this.messages.push(newMsg);
-                        this.enteredMessage = "";
-
-                    }
-                }
-            });
+            new window.appModules.bindSingleRoom.bind(JSON.parse('{!! str_replace("'", "\\'", $room) !!}'), JSON.parse('{!! str_replace("'", "\\'", $messages) !!}'));
         });
-
     </script>
 @stop
 

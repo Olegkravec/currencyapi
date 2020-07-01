@@ -25,6 +25,7 @@
                         <th>Created At</th>
                         <th>Actions</th>
                     </tr>
+
                     @foreach($users as $user)
                         @if($user->id === 1)
                             @continue {{-- HIDE SUPER ADMIN --}}
@@ -44,7 +45,7 @@
                                 @endcan
 
                                 @can("can chatting with others")
-                                        <a href="{{ route('users_permission', ['id' => $user->id]) }}" class="btn btn-xs btn-primary">Start conversation</a>
+                                        <a href="{{ route('new_conversion', ['user_id' => $user->id]) }}" class="btn btn-xs btn-primary">Start conversation</a>
                                 @endcan
                             </td>
                         </tr>

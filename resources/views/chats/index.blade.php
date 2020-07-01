@@ -28,17 +28,17 @@
                         <tr>
                             <td>{{$conversation['room']->id}}</td>
                             <td>
-                                @if(empty($conversation['room']->name))
-                                    {{ $conversations['members'][$conversation['room']['messages'][0]['user_id']]->name }}
-                                    @else
-                                    {{$conversation['room']->name}}
-                                @endif
+                                {{$conversation['room_name']}}
                             </td>
                             <td>
-                                @if(strlen($conversation['room']['messages'][0]->message) > 15)
-                                    {{ substr($conversation['room']['messages'][0]->message, 0, 15) . "..." }}
+                                @if(empty($conversation['room']['messages'][0]))
+                                    {{--empty conversation--}}
+                                @else
+                                    @if(strlen($conversation['room']['messages'][0]->message) > 15) {{-- if message too big we should to truncate --}}
+                                        {{ substr($conversation['room']['messages'][0]->message, 0, 15) . "..." }}
                                     @else
-                                    {{ $conversation['room']['messages'][0]->message }}
+                                        {{ $conversation['room']['messages'][0]->message }} {{-- or echo all --}}
+                                    @endif
                                 @endif
                             </td>
                             <td>

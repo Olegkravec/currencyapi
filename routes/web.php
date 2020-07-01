@@ -36,6 +36,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::group(['prefix' => 'chats', "middleware" => "permission:can chatting with others"], function () {
         Route::get('/', 'Admin\ChatController@index')->name('chats_index');
         Route::get('/{chat_id}', 'Admin\ChatController@chats_conversion')->name('chats_conversion');
+        Route::get('/new/{user_id}', 'Admin\ChatController@new_conversion')->name('new_conversion');
         Route::post("/fire/{room_id}", 'Admin\ChatController@fireMessage')->name('chats_fireMessage');
     });
 });

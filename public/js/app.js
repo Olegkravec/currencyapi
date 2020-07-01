@@ -43511,18 +43511,22 @@ module.exports = yeast;
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var laravel_echo__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! laravel-echo */ "./node_modules/laravel-echo/dist/echo.js");
+window.appModules = {};
+window.appModuleDirectives = {};
+
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
-console.log("Booted!");
-var authUser = JSON.parse(document.querySelector("meta[name='auth-user']").content);
-console.log("Hello " + authUser.name);
-
+window.appModules.bindSingleRoom = __webpack_require__(/*! ./modules/single-room.mod */ "./resources/js/modules/single-room.mod.js");
 window.io = __webpack_require__(/*! socket.io-client */ "./node_modules/socket.io-client/lib/index.js");
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+
+console.log("Booted!");
+window.authUser = JSON.parse(document.querySelector("meta[name='auth-user']").content);
 window.eventCallbacks = {
   "chatMessageReceived": [],
   "platformNotificationFired": []
 };
+console.log("Hello user " + authUser.name);
 window.eventCallbacks.chatMessageReceived.push(function (event) {
   console.log("We have some message from bCastServer");
   console.log(event);
@@ -43571,6 +43575,98 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/modules/single-room.mod.js":
+/*!*************************************************!*\
+  !*** ./resources/js/modules/single-room.mod.js ***!
+  \*************************************************/
+/*! exports provided: bind */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "bind", function() { return bind; });
+var bind = function bind(room, defaultMessages, fireUrl) {
+  if (!!!fireUrl) {
+    // If undefined set fireUrl to default
+    fireUrl = "/chats/fire/" + room.id;
+  }
+
+  if (!!!window.singleRoomBinds) window.singleRoomBinds = {};
+  if (!!window.singleRoomBinds[room.id]) throw "Room already bined";
+  window.singleRoomBinds[room.id] = new Vue({
+    el: '#app',
+    data: {
+      myName: window.authUser.name,
+      myUId: window.authUser.id,
+      messages: defaultMessages,
+      enteredMessage: "",
+      channelId: room.id,
+      channel: window.Echo.join("room." + room.id),
+      fireUrl: fireUrl,
+      activeUsers: [],
+      isTyping: "",
+      typingTimer: null
+    },
+    mounted: function mounted() {
+      this.channel.here(function (e) {
+        window.singleRoomBinds[room.id].activeUsers = e;
+      }).joining(function (e) {
+        window.singleRoomBinds[room.id].activeUsers.push(e);
+      }).leaving(function (e) {
+        window.singleRoomBinds[room.id].activeUsers.splice(window.singleRoomBinds[room.id].activeUsers.indexOf(e));
+      }).listen('.messageFired', function (e) {
+        var newMsg = {
+          created_at: new Date().toGMTString(),
+          message: e.message.message,
+          user_id: e.user.id
+        };
+        window.singleRoomBinds[room.id].messages.push(newMsg);
+        setTimeout(function () {
+          document.getElementById('bottom').scrollIntoView();
+        }, 500);
+      }).listenForWhisper('typing', function (e) {
+        window.singleRoomBinds[room.id].isTyping = e.user + " is typing...";
+        if (!e.typing) window.singleRoomBinds[room.id].isTyping = "";
+      });
+    },
+    methods: {
+      startTyping: function startTyping() {
+        if (!!!window.singleRoomBinds[room.id].typingTimer) {
+          window.singleRoomBinds[room.id].typingTimer = setTimeout(function () {
+            window.singleRoomBinds[room.id].channel.whisper('typing', {
+              user: this.myName + " is typing...",
+              typing: false
+            });
+            window.singleRoomBinds[room.id].typingTimer = null;
+          }, 5000);
+        }
+
+        this.channel.whisper('typing', {
+          user: this.myName,
+          typing: true
+        });
+      },
+      sendMessage: function sendMessage() {
+        var newMsg = {
+          created_at: 'Sending...',
+          message: this.enteredMessage,
+          user_id: this.myUId
+        };
+        axios.post(fireUrl, {
+          message: this.enteredMessage
+        }).then(function (response) {
+          window.singleRoomBinds[room.id].messages[window.singleRoomBinds[room.id].messages.length - 1].created_at = new Date().toGMTString();
+        })["catch"](function (error) {
+          alert(error);
+        });
+        this.enteredMessage = "";
+      }
+    }
+  });
+};
 
 /***/ }),
 
