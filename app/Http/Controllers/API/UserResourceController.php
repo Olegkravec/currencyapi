@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\SignInAPIRequest;
 use App\Http\Requests\API\SignUpAPIRequest;
+use App\Http\Requests\API\UpdateUserAPIRequest;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -87,9 +88,25 @@ class UserResourceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateUserAPIRequest $request, $id)
     {
-        //
+        $validated = $request->validated();
+        $user = Auth::guard("api")->user();
+        if(!empty($validated["password"]))
+            $validated["password"] = bcrypt($validated["password"]);
+
+        if(empty($user)){
+            return response([
+                "status" => "error",
+                "message" => "User not found",
+            ], 404);
+        }
+        $updated = $user->update($validated);
+
+        return response([
+            "status" => $updated,
+            "message" => "User updated",
+        ], 200);
     }
 
     /**
@@ -114,7 +131,8 @@ class UserResourceController extends Controller
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        return response(null)
+
+        return response(Auth::guard("api")->user())
             ->header('access_token', $token)
             ->header('token_type', 'bearer')
             ->header('expires_in', 3600);
