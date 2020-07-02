@@ -21,6 +21,9 @@ Route::group(['prefix' => 'v1'], function () {
     Route::resource("subscriptions", "API\SubscriptionsResourceController")->middleware("auth:api");
     Route::get('/payments/create', 'API\PaymentsAPIController@create')->name('payments.create')->middleware("auth:api");
     Route::post('/payments/methods', 'API\PaymentsAPIController@storeMethod')->name('payments.storeMethod')->middleware("auth:api");
+
+    Route::get('/currencies', 'API\CurrenciesController@getAll')->name('currencies.all');
+    Route::get('/currencies/{pair}', 'API\CurrenciesController@getPair')->name('currencies.pair');
 });
 
 
