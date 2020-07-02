@@ -41,7 +41,7 @@ class UserResourceController extends Controller
      */
     public function store(SignUpAPIRequest $request)
     {
-        $user = User::where("email", $request->validated()["email"])->disableCache()->first();
+        $user = User::where("email", $request->validated()["email"])->first();
         if(!empty($user)){
             return response([
                 "status" => "error",
@@ -51,7 +51,8 @@ class UserResourceController extends Controller
         $credentials = $request->validated();
         $credentials["password"] = bcrypt($credentials["password"]);
 
-        User::create($credentials);
+        $user = User::create($credentials);
+        $user->createOrGetStripeCustomer();
 
         return response([
             "status" => "success",

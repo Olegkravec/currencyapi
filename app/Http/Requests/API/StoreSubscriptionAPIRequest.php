@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\API;
 
-use App\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class UserUpdateAdminRequest extends FormRequest
+class StoreSubscriptionAPIRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -15,9 +14,7 @@ class UserUpdateAdminRequest extends FormRequest
      */
     public function authorize()
     {
-        $user = User::find($this->route("user"));
-
-        return !empty($user) and Auth::user()->can("edit users");
+        return !empty(Auth::user());
     }
 
     /**
@@ -28,9 +25,7 @@ class UserUpdateAdminRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string',
-            'email' => 'required|email:rfc,dns',
-            'password' => 'nullable|min:6|confirmed',
+            'plan' => 'required|min:8'
         ];
     }
 }

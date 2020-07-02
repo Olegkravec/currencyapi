@@ -243,6 +243,12 @@ return [
             'icon'        => 'far fa-fw fa-file',
             'permissions' => 'can chatting with others',
         ],
+        [
+            'text'        => "Subscriptions",
+            'url'         => '/subscriptions',
+            'icon'        => 'far fa-fw fa-file',
+            'permissions' => 'see subscriptions',
+        ],
     ],
 
     /*

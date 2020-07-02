@@ -2,12 +2,10 @@
 
 namespace App\Http\Requests;
 
-use App\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
-use Spatie\Permission\Models\Permission;
 
-class PermissionRevokeRequest extends FormRequest
+class StoreSubscriptionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -16,10 +14,7 @@ class PermissionRevokeRequest extends FormRequest
      */
     public function authorize()
     {
-        $user = User::find($this->route("user_id"));
-        $permission = Permission::find($this->route("permission_id"));
-
-        return !empty($user) and !empty($permission) and Auth::user()->can("edit users permissions");
+        return Auth::user()->can("create subscription");
     }
 
     /**
@@ -30,8 +25,8 @@ class PermissionRevokeRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => 'int',
-            'permission_id' => 'int'
+            "name" => "required|string",
+            "plan" => "required|string"
         ];
     }
 }

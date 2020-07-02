@@ -16,7 +16,7 @@ class GrantPermissionToUserRequest extends FormRequest
      */
     public function authorize()
     {
-        $user = User::disableCache()->find($this->route("user_id"));
+        $user = User::find($this->route("user_id"));
         $permission = Permission::find($this->route("permission_id"));
 
         return !empty($user) and !empty($permission) and Auth::user()->can("edit users permissions");
