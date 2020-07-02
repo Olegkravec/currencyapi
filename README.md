@@ -16,6 +16,7 @@
 * Run your web-server with DocumentRoot insde of .../public directory
 * laravel-echo-server start
 * Open application in browser
+* Run queues by: ***php artisan queue:work --queue=currencies***
 
 ### Using
 
@@ -29,3 +30,6 @@ SuperAdmin default:
 50 other's users passwords:
 * password
 
+
+### Environment
+* QUEUE_CONNECTION=redis

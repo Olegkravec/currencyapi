@@ -15,5 +15,6 @@ class DatabaseSeeder extends Seeder
         $this->call(CreateBaseRolesSeeder::class);
         $this->call(CreateDefaultUsersSeeder::class);
         $this->call(FirstChatSeeder::class);
+        $this->call(AllowedCurrencySeeder::class);
     }
 }
