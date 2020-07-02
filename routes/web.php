@@ -20,14 +20,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/subs', function (){
-    $user = \App\User::find(2);
-
-//    $res = $user->newSubscription('default')->create($user->defaultPaymentMethod()->id);
-    \Stripe\Stripe::setApiKey(env("STRIPE_SECRET"));
-    $plans = \Stripe\Plan::all(['active'=>true]);
-    dd($plans);
-})->name('home');
 
 Route::group(['middleware' => ['auth']], function() {
     Route::resource("users", "Admin\UserResourceController");

@@ -128,7 +128,27 @@ class SubscriptionsResourceController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = Auth::guard("api")->user();
+
+        if (!$user->subscribed($id)) {
+            return response([
+                "status" => "error",
+                "message" => "Subscription not found",
+            ], 404);
+        }
+
+        $response = $user->subscription('default')->cancelNow();
+        if($response->stripe_status === "canceled"){
+            return response([
+                "status" => "success",
+                "message" => $response,
+            ], 200);
+        }
+
+        return response([
+            "status" => "error",
+            "message" => $response,
+        ], 200);
     }
 
 
