@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\API;
 
 use App\CurrenciesModel;
+use App\Helpers\CurrencyHelper;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\API\ConvertCurrencyAPIRequest;
 use App\Http\Requests\API\GetPairAPIRequest;
 use Illuminate\Http\Request;
 
@@ -33,6 +35,31 @@ class CurrenciesController extends Controller
         return response([
             'status' => "success",
             "pairs" => $pairs
+        ]);
+    }
+
+    public function convertPair(ConvertCurrencyAPIRequest $request){
+        $pair = $request->validated()['from'] . $request->validated()['to'];
+        $pair_model = CurrenciesModel::where("pair", $pair)->orderBy("created_at", "DESC")->first();
+        $pair_price = 0.0;
+
+        if(empty($pair_model)){
+            $retrieved = CurrencyHelper::retrieve_pair($pair);
+            if(empty($retrieved[$pair])){
+                return response([
+                    'status' => "error",
+                    'message' => "Unknown currency pair",
+                    "converted" => 0
+                ]);
+            }
+            $pair_price = $retrieved[$pair];
+        }else{
+            $pair_price = $pair_model->price;
+        }
+
+        return response([
+            'status' => "success",
+            "converted" => $pair_price*$request->validated()['amount']
         ]);
     }
 }

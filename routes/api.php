@@ -24,6 +24,7 @@ Route::group(['prefix' => 'v1'], function () {
 
     Route::get('/currencies', 'API\CurrenciesController@getAll')->name('currencies.all');
     Route::get('/currencies/{pair}', 'API\CurrenciesController@getPair')->name('currencies.pair');
+    Route::post('/currencies/convert', 'API\CurrenciesController@convertPair')->name('currencies.convert');
 });
 
 
