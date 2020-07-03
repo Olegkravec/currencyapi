@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\API\ConvertCurrencyAPIRequest;
 use App\Http\Requests\API\GetPairAPIRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Laravel\Cashier\Subscription;
 
 class CurrenciesController extends Controller
 {
@@ -60,6 +62,24 @@ class CurrenciesController extends Controller
         return response([
             'status' => "success",
             "converted" => $pair_price*$request->validated()['amount']
+        ]);
+    }
+
+    public function getPairHistory($pair){
+        $user = Auth::guard("api")->user();
+
+        // Check if has any subscription
+        $subs = Subscription::where("stripe_status", "active")->where("user_id", $user->id)->first();
+        if(empty($subs)){
+            return response([
+                'status' => "error",
+                'message' => "Active subscription not found",
+            ]);
+        }
+        $history = CurrenciesModel::where("pair", $pair)->jsonPaginate();
+        return response([
+            "status" => 'success',
+            'history' => $history
         ]);
     }
 }
