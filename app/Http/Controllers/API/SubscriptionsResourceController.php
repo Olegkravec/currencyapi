@@ -60,15 +60,20 @@ class SubscriptionsResourceController extends Controller
                 "message" => "Should add payment method first",
             ], 403);
         }
+        \Stripe\Stripe::setApiKey(env("STRIPE_SECRET"));
+        $plans = \Stripe\Plan::retrieve($request->validated()['plan']);
+        $subscription_id = $plans->nickname;
 
-        if ($user->subscribed('default')) {
+        if ($user->subscribed($subscription_id)) {
             return response([
                 "status" => "error",
                 "message" => "Already subscribed",
             ], 403);
         }
 
-        $result = $user->newSubscription('default', $request->validated()['plan'])->create($paymentMethod->id);
+
+
+        $result = $user->newSubscription($subscription_id, $request->validated()['plan'])->create($paymentMethod->id);
         return response([
             "status" => "success",
             "message" => $result,
@@ -137,7 +142,7 @@ class SubscriptionsResourceController extends Controller
             ], 404);
         }
 
-        $response = $user->subscription('default')->cancelNow();
+        $response = $user->subscription($id)->cancelNow();
         if($response->stripe_status === "canceled"){
             return response([
                 "status" => "success",
