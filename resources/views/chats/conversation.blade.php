@@ -19,7 +19,10 @@
     <div id="app" class="box box-primary">
         <div class="box-header with-border" >
             <div class="box-body table-responsive no-padding">
-                    <div class="col-md-12" {{--style="position: fixed; bottom: 0; right: 0; background: white;"--}}>
+                    <div class="col-md-12">
+                        <a href="{{ route('chats.invite', $room->id) }}">
+                            <div class="btn btn-xs btn-dark">Invite more members</div>
+                        </a>
                         <div class="box box-warning direct-chat direct-chat-warning">
                             <div class="box-header with-border">
                                 <h3 class="box-title">Direct Chat <small><small>@{{ isTyping }}</small></small></h3>

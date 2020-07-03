@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Events\MessageFiredEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FireMessageRequest;
+use App\Http\Requests\InviteMembersToRoomRequest;
 use App\Models\MessagesModel;
 use App\Models\RoomsMembersModel;
 use App\Models\RoomsModel;
@@ -110,5 +111,34 @@ class ChatController extends Controller
             $message->message = $request->validated()['message'];
             $message->save();
         }
+    }
+
+    /**
+     * Prepare tables with available admins for inviting
+     *
+     * @param $room_id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function chats_invite($room_id){
+        $room = RoomsModel::find($room_id);
+
+
+        return view("chats.invite")->with([
+            'room' => $room,
+            'users' => User::permission('can chatting with others')->get()
+        ]);
+    }
+
+    public function saveInvites(InviteMembersToRoomRequest $request, $room_id){
+        $room = RoomsModel::find($room_id);
+
+        $users = $request->validated()['id'];
+
+        foreach ($users as $user){
+            $room->inveteMember($user);
+        }
+
+        flash("Members invited successfully!")->success();
+        return redirect()->route("chats_conversion", $room_id);
     }
 }

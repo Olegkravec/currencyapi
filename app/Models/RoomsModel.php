@@ -69,6 +69,31 @@ class RoomsModel extends Model
         return $this->hasMany('App\Models\RoomsMembersModel', 'room_id', 'id')->where("user_id", "!=" ,Auth::id())->get();
     }
 
+
+    public function inveteMember($member_id){
+        $member = new RoomsMembersModel();
+        $member->room_id = $this->id;
+        $member->user_id = $member_id;
+        $member->save();
+
+        if(!$this->isGroup){
+            $this->isGroup = true;
+            $this->save();
+        }
+    }
+
+
+    /**
+     * Checks if room already have invited selected user
+     *
+     * @param $member_id
+     * @return bool
+     */
+    public function containMember($member_id){
+        $user = RoomsMembersModel::where("user_id", $member_id)->where("room_id", $this->id)->first();
+        return !empty($user);
+    }
+
     /**
      * Get all messages typed in the chat
      * @return \Illuminate\Database\Eloquent\Collection
