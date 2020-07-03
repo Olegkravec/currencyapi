@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\CurrenciesModel;
 use App\Helpers\CurrencyHelper;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\API\CompareCurrencyRequest;
 use App\Http\Requests\API\ConvertCurrencyAPIRequest;
 use App\Http\Requests\API\GetPairAPIRequest;
 use Illuminate\Http\Request;
@@ -16,13 +17,23 @@ class CurrenciesController extends Controller
     public function getAll(){
         $pairs = CurrenciesModel::groupBy("pair")->get("pair")->toArray();
         $prepared_pairs_array = [];
+        $prepared_currencies_array = [];
 
         // Extract currency pairs from non understandable array to useful array
-        array_walk($pairs, function ($key, $value) use (&$prepared_pairs_array){
+        array_walk($pairs, function ($key, $value) use (&$prepared_pairs_array, &$prepared_currencies_array){
             $prepared_pairs_array[] = $key['pair'];
+
+            $unpaired = str_split($key['pair'], 3);
+            if(empty($prepared_currencies_array[$unpaired[0]]))
+                $prepared_currencies_array[] = $unpaired[0];
+
+            if(empty($prepared_currencies_array[$unpaired[1]]))
+                $prepared_currencies_array[] = $unpaired[1];
+
         });
         return response([
             'status' => "success",
+            "currencies" => $prepared_currencies_array,
             "pairs" => $prepared_pairs_array
         ]);
     }
@@ -65,6 +76,11 @@ class CurrenciesController extends Controller
         ]);
     }
 
+    /**
+     * Returns model of last data about selected currency pair
+     * @param $pair
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     */
     public function getPairHistory($pair){
         $user = Auth::guard("api")->user();
 
@@ -80,6 +96,61 @@ class CurrenciesController extends Controller
         return response([
             "status" => 'success',
             'history' => $history
+        ]);
+    }
+
+    /**
+     * Returns response model with comparations data about main and comparable currency pairs.
+     *
+     * @param CompareCurrencyRequest $request
+     * @param $main_currency
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     */
+    public function getPairsComparing(CompareCurrencyRequest $request, $main_currency){
+        $currencies = $request->validated()['compare_to'];
+        if(strpos($currencies, ",") === false) // Because request should be like "?compare_to=USD,EUR"
+            return response([
+                "status" => 'error',
+                'message' => "Bad request. You should explode currencies by ','"
+            ]);
+
+        $currencies = explode(",", $currencies);
+
+        $response_model = [
+            "main_currency" => $main_currency,
+            "compares" => []
+        ];
+
+        foreach ($currencies as $currency){
+            $pair = $main_currency.$currency;
+            $default_pair_model = [
+                "direction" => "same",
+                "difference" => 0.0,
+                "old_price" => 0.0,
+                "new_price" => 0.0,
+                "from" => $main_currency,
+                "to" => $currency,
+            ];
+            $currency = CurrenciesModel::findOrRetrievePair($pair);
+
+            $default_pair_model['new_price'] = (float)$currency['new']->{$pair};
+            if(!empty($currency['old'])){
+                $default_pair_model['old_price'] = (float)$currency['old']->{$pair};
+                if($currency['old']->{$pair} > $currency['new']->{$pair}){
+                    $default_pair_model['direction'] = "descending";
+                    $default_pair_model['difference'] = "-" . ($currency['old']->{$pair} - $currency['new']->{$pair});
+                }
+                if($currency['new']->{$pair} > $currency['old']->{$pair}){
+                    $default_pair_model['direction'] = "ascending";
+                    $default_pair_model['difference'] = "+" . ($currency['new']->{$pair} - $currency['old']->{$pair});
+                }
+            }
+            $response_model["compares"][$pair] = $default_pair_model;
+        }
+
+        return response([
+            "status" => 'success',
+            'data' => $response_model
         ]);
     }
 }

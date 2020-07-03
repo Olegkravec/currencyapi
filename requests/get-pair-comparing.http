@@ -1,0 +1,43 @@
+# For a quick start check out our HTTP Requests collection (Tools|HTTP Client|Open HTTP Requests Collection).
+#
+# Following HTTP Request Live Templates are available:
+# * 'gtrp' and 'gtr' create a GET request with or without query parameters;
+# * 'ptr' and 'ptrp' create a POST request with a simple or parameter-like body;
+# * 'mptr' and 'fptr' create a POST request to submit a form with a text or file field (multipart/form-data);
+
+POST http://laravel.api/api/v1/signin
+Content-Type: application/json
+
+{
+  "email": "wisoky.dejon@example.net",
+  "password": "password"
+}
+
+> {%
+client.global.set("user_id", response.body.id);
+client.global.set("bearer_token", response.headers.valueOf('access_token'));
+%}
+
+###
+
+GET http://laravel.api/api/v1/currencies
+Authorization: Bearer {{bearer_token}}
+Content-Type: application/json
+
+> {%
+client.global.set("selected_main_currency", response.body.currencies[1]);
+client.global.set("selected_first_currency", response.body.currencies[2]);
+client.global.set("selected_second_currency", response.body.currencies[3]);
+%}
+###
+
+#GET http://laravel.api/api/v1/currencies/{{selected_main_currency}}/compare?compare_to={{selected_first_currency}}, {{selected_second_currency}}
+GET http://laravel.api/api/v1/currencies/USD/compare?compare_to=UAH,RUB
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{bearer_token}}
+
+
+
+###
+
