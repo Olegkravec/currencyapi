@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class StoreSubscriptionRequest extends FormRequest
+class UpdateSubscriptionAdminRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,7 +14,7 @@ class StoreSubscriptionRequest extends FormRequest
      */
     public function authorize()
     {
-        return Auth::user()->can("create subscription");
+        return Auth::user()->can("edit subscription");
     }
 
     /**
@@ -25,8 +25,8 @@ class StoreSubscriptionRequest extends FormRequest
     public function rules()
     {
         return [
-            "user_id" => "required|integer",
-            "plan_id" => "required"
+            'subscription_id' => 'integer|required',
+            'plan_id' => 'required'
         ];
     }
 }

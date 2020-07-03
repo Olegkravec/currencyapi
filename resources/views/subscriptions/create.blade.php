@@ -14,33 +14,24 @@
             <div class="box-body table-responsive no-padding">
                 <form method="post" action="{{route("subscriptions.store")}}">
                     @csrf
-                    @method('post')
+
+                    <input type="text" hidden name="user_id" value="{{$user->id}}">
 
                     <div class="card ">
                         <div class="card-header card-header-primary">
-                            <h4 class="card-title">{{ __('Edit Profile') }}</h4>
+                            <h4 class="card-title">{{ __('Crete subscription for') }} <b>{{$user->name}}</b></h4>
                         </div>
                         <div class="card-body ">
                             <div class="row">
-                                <label class="col-sm-2 col-form-label">{{ __('Subscription name') }}</label>
-                                <div class="col-sm-7">
-                                    <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
-                                        <input class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" id="input-name" type="text" placeholder="{{ __('Name') }}" required="true" aria-required="true"/>
-                                        @if ($errors->has('name'))
-                                            <span id="name-error" class="error text-danger" for="input-name">{{ $errors->first('name') }}</span>
-                                        @endif
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <label class="col-sm-2 col-form-label">{{ __('Subscription plan') }}</label>
-                                <div class="col-sm-7">
-                                    <div class="form-group{{ $errors->has('plan') ? ' has-danger' : '' }}">
-                                        <input class="form-control{{ $errors->has('plan') ? ' is-invalid' : '' }}" name="plan" id="input-plan" type="text" placeholder="{{ __('Plan') }}"/>
-                                        @if ($errors->has('email'))
-                                            <span id="plan-error" class="error text-danger" for="input-plan">{{ $errors->first('plan') }}</span>
-                                        @endif
-                                    </div>
+                                <label class="col-md-2 col-form-label">Select plan</label>
+                                <div class="col-md-7">
+                                    <select class="se1lect2-plans" name="plan_id">
+                                        @foreach($plans as $plan)
+                                            <option value="{{$plan->id}}">
+                                                {{$plan->nickname}} / {{ $plan->amount/100 }} {{ $plan->currency }}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                         </div>

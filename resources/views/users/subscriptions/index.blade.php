@@ -1,9 +1,14 @@
 @extends('adminlte::page')
 
-@section('title', 'Subscriptions ' . env("APP_NAME"))
+@section('title', 'Subscription list ' . env("APP_NAME"))
 
 @section('content_header')
-    <h1>Subscriptions list</h1>
+    @can("edit subscription")
+        <div class="no-margin pull-right">
+            <a href="{{ route('subscriptions.createAssigned', $user->id) }}"><div class="btn btn-success btn-xs">Make new subscription</div></a>
+        </div>
+    @endcan
+    <h1>Subscriptions list for user <b>{{ $user->name }}</b> </h1>
 @stop
 
 @section('content')
@@ -18,20 +23,23 @@
                         <th>ID</th>
                         <th>Name</th>
                         <th>Status</th>
-                        <th>User</th>
-                        <th>Action</th>
+                        <th>Actions</th>
                     </tr>
-
                     @foreach($subscriptions as $subscription)
-                        <tr  class="bg-{{ $subscription->stripe_status == "active" ? 'white' : 'black' }}">
+                        <tr class="bg-{{ $subscription->stripe_status == "active" ? 'white' : 'black' }}">
                             <td>{{$subscription->id}}</td>
-                            <td>{{ $subscription->name }}</td>
+                            <td>{{$subscription->name}}</td>
                             <td>{{$subscription->stripe_status}}</td>
-                            <td>{{ \App\User::find($subscription->user_id)->name }}</td>
+
                             <td>
                                 @can("edit subscription")
                                     @if($subscription->stripe_status == "active")
                                         <a href="{{ route('subscriptions.edit', $subscription->id) }}" class="btn btn-xs btn-primary">Edit</a>
+                                        <form method="post" action="{{route("subscriptions.destroy", $subscription->id)}}">
+                                        @csrf
+                                        @method('delete')
+                                            <button type="submit" class="btn btn-xs btn-primary">{{ __('Cancel') }}</button>
+                                        </form>
                                     @endif
                                 @endcan
                             </td>

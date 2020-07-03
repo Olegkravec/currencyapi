@@ -23,7 +23,18 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => ['auth']], function() {
     Route::resource("users", "Admin\UserResourceController");
-    Route::resource("subscriptions", "Admin\SubscriptionsResourceController")->middleware("permission:see subscriptions");
+
+    Route::get('/users/{user_id}/subscriptions', 'Admin\SubscriptionsResourceController@users_subscriptions')
+        ->name('users.subscriptions')
+        ->middleware("permission:see subscriptions");
+
+    Route::get('/subscriptions/assigned/{user_id}', 'Admin\SubscriptionsResourceController@createAssigned')
+        ->name('subscriptions.createAssigned')
+        ->middleware("permission:edit subscription");
+
+    Route::resource("subscriptions", "Admin\SubscriptionsResourceController")
+        ->middleware("permission:see subscriptions");
+
     Route::group(['prefix' => 'users'], function () {
         Route::get('/{id}/permissions', 'Admin\UserPermissionsController@index')->name('users_permission');
         Route::delete('/{user_id}/permissions/{permission_id}', 'Admin\UserPermissionsController@permission_revoke')->name('users_permission_revoke');
