@@ -23,6 +23,7 @@
         "laravel-echo": "^1.8.0",
         "pusher-js": "^6.0.3",
         "socket.io-client": "^2.3.0",
+        "swagger-ui": "^3.28.0",
         "vue": "^2.6.11"
     }
 }

@@ -23,6 +23,7 @@ class CurrencyHelper
         $response_content = $body->getContents();
 
         $parsed_response = json_decode($response_content);
+
         if($parsed_response->status !== 200)
             throw new \Exception("CurrateUnsuccessfulRequestException");
 

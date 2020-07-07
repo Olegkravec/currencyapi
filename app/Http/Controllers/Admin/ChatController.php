@@ -67,7 +67,7 @@ class ChatController extends Controller
 
         $room = RoomsMembersModel::isConverstationExistWithUsersPair(Auth::id(), $user_id);
 
-        if(!empty($room)){
+        if(!empty($room) and !empty($room[0])){
             return redirect()->route("chats_conversion", ["chat_id" => $room[0]->room_id]);
         }
         // Create room for conversation

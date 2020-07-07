@@ -10,6 +10,7 @@
 ### Installing
 * Configure ***.env*** file regarding to ***.env.example***
 * composer update
+* php artisan migrate
 * php artisan db:seed (will add 50 users and super-admin)
 * ***(if needed)*** laravel-echo-server init 
 * Check if 'laravel-echo-server.json' contains valid ***authHost*** directive. ***Cannot be ip or localhost***

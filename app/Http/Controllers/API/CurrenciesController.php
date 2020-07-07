@@ -76,11 +76,8 @@ class CurrenciesController extends Controller
         ]);
     }
 
-    /**
-     * Returns model of last data about selected currency pair
-     * @param $pair
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
-     */
+
+
     public function getPairHistory($pair){
         $user = Auth::guard("api")->user();
 

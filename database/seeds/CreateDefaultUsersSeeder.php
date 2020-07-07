@@ -24,7 +24,6 @@ class CreateDefaultUsersSeeder extends Seeder
             $user->remember_token = Str::random(10);
             $user->save();
 
-            $user->assignRole('client');
 
         }
     }

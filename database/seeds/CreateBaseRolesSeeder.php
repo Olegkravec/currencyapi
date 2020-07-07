@@ -68,5 +68,10 @@ class CreateBaseRolesSeeder extends Seeder
         $i_am_super_admin = \App\User::find(2);
         $i_am_super_admin->syncPermissions($permission_stack);
         $i_am_super_admin->assignRole('client', 'admin');
+
+
+        foreach (\App\User::all() as $user){
+            $user->assignRole('client');
+        }
     }
 }

@@ -1,0 +1,50 @@
+{
+  "swagger": "2.0",
+  "host": "localhost",
+  "basePath": "/",
+  "schemes": [],
+  "paths": {
+    "\/api\/v1\/currencies": {
+      "get": {
+        "tags": [
+          "api"
+        ],
+        "consumes": [
+          "application\/json"
+        ],
+        "produces": [
+          "application\/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "example": {
+                "status": "success",
+                "currencies": [
+                  "USD",
+                  "UAH"
+                ],
+                "pairs": [
+                  "USDUAH"
+                ]
+              }
+            }
+          }
+        },
+        "security": [],
+        "description": ""
+      }
+    }
+  },
+  "info": {
+    "description": "This is automatically collected documentation",
+    "version": "1.0.0",
+    "title": "Laravel API",
+    "termsOfService": "",
+    "contact": {
+      "email": "o.kravets@evnedev.com"
+    }
+  }
+}

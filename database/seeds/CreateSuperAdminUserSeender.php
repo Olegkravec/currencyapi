@@ -12,7 +12,6 @@ class CreateSuperAdminUserSeender extends Seeder
      */
     public function run()
     {
-        \DB::statement("truncate table users");
         \DB::statement("ALTER TABLE users AUTO_INCREMENT = 1");
         \DB::table('users')->insert([
             "id" => 1,

@@ -169,6 +169,7 @@ return [
         /*
          * Application Service Providers...
          */
+        RonasIT\Support\AutoDoc\AutoDocServiceProvider::class,
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
          App\Providers\BroadcastServiceProvider::class,

@@ -122,6 +122,10 @@ class UserResourceController extends Controller
     }
 
 
+    /**
+     * @param SignInAPIRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function signin(SignInAPIRequest $request){
         $credentials = [
             "email" => $request->validated()['email'],

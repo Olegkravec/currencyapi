@@ -12,8 +12,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(CreateSuperAdminUserSeender::class);
-        $this->call(CreateBaseRolesSeeder::class);
         $this->call(CreateDefaultUsersSeeder::class);
+        $this->call(CreateBaseRolesSeeder::class);
         $this->call(FirstChatSeeder::class);
         $this->call(AllowedCurrencySeeder::class);
     }

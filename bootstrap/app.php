@@ -11,6 +11,8 @@
 |
 */
 
+use Illuminate\Support\Arr;
+
 $app = new Illuminate\Foundation\Application(
     $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
 );
@@ -26,6 +28,7 @@ $app = new Illuminate\Foundation\Application(
 |
 */
 
+
 $app->singleton(
     Illuminate\Contracts\Http\Kernel::class,
     App\Http\Kernel::class
@@ -40,6 +43,50 @@ $app->singleton(
     Illuminate\Contracts\Debug\ExceptionHandler::class,
     App\Exceptions\Handler::class
 );
+
+
+if (!function_exists('array_get')) {
+    function array_get($a, $k)
+    {
+        return Illuminate\Support\Arr::get($a, $k);
+    }
+}
+
+if (!function_exists('array_collapse')) {
+    function array_collapse($a)
+    {
+        return Illuminate\Support\Arr::collapse($a);
+    }
+}
+
+if (!function_exists('array_first')) {
+    function array_first($a)
+    {
+        return Illuminate\Support\Arr::first($a);
+    }
+}
+
+if (!function_exists('array_where')) {
+    function array_where($a, $callback)
+    {
+        return Illuminate\Support\Arr::where($a, $callback);
+    }
+}
+
+if (!function_exists('array_dot')) {
+    function array_dot($a)
+    {
+        return Illuminate\Support\Arr::dot($a);
+    }
+}
+
+if (!function_exists('array_set')) {
+    function array_set($a, $k, $v)
+    {
+        return Illuminate\Support\Arr::set($a, $k, $v);
+    }
+}
+
 
 /*
 |--------------------------------------------------------------------------
