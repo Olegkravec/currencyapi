@@ -15,7 +15,7 @@ class MainMenuPermissionFilter
      * @param Builder $builder
      * @return bool
      */
-    public function transform($item, Builder $builder)
+    public function transform($item)
     {
         if (isset($item['permissions']) && !Auth::user()->can($item['permissions'])) {
             return false;
