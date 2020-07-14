@@ -36,8 +36,9 @@ class SubscriptionsResourceController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @param $user_id
+     * @return array|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     * @throws \Stripe\Exception\ApiErrorException
      */
     public function createAssigned($user_id)
     {
@@ -58,8 +59,11 @@ class SubscriptionsResourceController extends Controller
      * Store a newly created resource in storage.
      * Checking of permission is present in request model
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param StoreSubscriptionRequest $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|void
+     * @throws \Laravel\Cashier\Exceptions\PaymentActionRequired
+     * @throws \Laravel\Cashier\Exceptions\PaymentFailure
+     * @throws \Stripe\Exception\ApiErrorException
      */
     public function store(StoreSubscriptionRequest $request)
     {
@@ -92,8 +96,9 @@ class SubscriptionsResourceController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $id
+     * @return array|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     * @throws \Stripe\Exception\ApiErrorException
      */
     public function edit($id)
     {
@@ -113,9 +118,12 @@ class SubscriptionsResourceController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param UpdateSubscriptionAdminRequest $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Laravel\Cashier\Exceptions\PaymentActionRequired
+     * @throws \Laravel\Cashier\Exceptions\PaymentFailure
+     * @throws \Stripe\Exception\ApiErrorException
      */
     public function update(UpdateSubscriptionAdminRequest $request, $id)
     {

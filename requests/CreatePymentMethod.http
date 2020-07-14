@@ -9,7 +9,7 @@ POST http://laravel.api/api/v1/signin
 Content-Type: application/json
 
 {
-  "email": "wisoky.dejon@example.net",
+  "email": "iamadmin@gmail.com",
   "password": "password"
 }
 
@@ -26,7 +26,7 @@ Authorization: Bearer {{bearer_token}}
 
 ###
 
-GET http://laravel.api/api/v1/payments/create
+GET http://laravel.api/api/v1/payments/create?token={{bearer_token}}
 Content-Type: application/json
 Authorization: Bearer {{bearer_token}}
 

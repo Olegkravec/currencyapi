@@ -45,9 +45,9 @@ class SubscriptionsResourceController extends Controller
     /**
      * Create new subscription
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     * StoreSubscriptionRequest
+     * @param StoreSubscriptionAPIRequest $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|\Symfony\Component\HttpFoundation\Response
+     * @throws \Stripe\Exception\ApiErrorException
      */
     public function store(StoreSubscriptionAPIRequest $request)
     {

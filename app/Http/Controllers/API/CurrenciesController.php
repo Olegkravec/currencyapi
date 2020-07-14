@@ -14,6 +14,10 @@ use Laravel\Cashier\Subscription;
 
 class CurrenciesController extends Controller
 {
+    /**
+     * Build array of all currencies that is present in DB
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|\Symfony\Component\HttpFoundation\Response
+     */
     public function getAll(){
         $pairs = CurrenciesModel::groupBy("pair")->get("pair")->toArray();
         $prepared_pairs_array = [];
@@ -23,7 +27,7 @@ class CurrenciesController extends Controller
         array_walk($pairs, function ($key, $value) use (&$prepared_pairs_array, &$prepared_currencies_array){
             $prepared_pairs_array[] = $key['pair'];
 
-            $unpaired = str_split($key['pair'], 3);
+            $unpaired = str_split($key['pair'], 3); // Split by 3 chars
             if(empty($prepared_currencies_array[$unpaired[0]]))
                 $prepared_currencies_array[] = $unpaired[0];
 
@@ -38,6 +42,13 @@ class CurrenciesController extends Controller
         ]);
     }
 
+    /**
+     * Retrieve selected pair
+     *
+     * @param GetPairAPIRequest $request
+     * @param $pair
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|\Symfony\Component\HttpFoundation\Response
+     */
     public function getPair(GetPairAPIRequest $request, $pair){
         $pair_model = CurrenciesModel::where("pair", $pair);
 
@@ -51,6 +62,13 @@ class CurrenciesController extends Controller
         ]);
     }
 
+    /**
+     * Convert currency into another currency
+     *
+     * @param ConvertCurrencyAPIRequest $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|\Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
+     */
     public function convertPair(ConvertCurrencyAPIRequest $request){
         $pair = $request->validated()['from'] . $request->validated()['to'];
         $pair_model = CurrenciesModel::where("pair", $pair)->orderBy("created_at", "DESC")->first();
@@ -77,7 +95,12 @@ class CurrenciesController extends Controller
     }
 
 
-
+    /**
+     * Get history of selected currency pair
+     *
+     * @param $pair
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|\Symfony\Component\HttpFoundation\Response
+     */
     public function getPairHistory($pair){
         $user = Auth::guard("api")->user();
 
@@ -104,6 +127,9 @@ class CurrenciesController extends Controller
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */
     public function getPairsComparing(CompareCurrencyRequest $request, $main_currency){
+        /**
+         * TODO: REFACTOR THIS
+         */
         $currencies = $request->validated()['compare_to'];
         if(strpos($currencies, ",") === false) // Because request should be like "?compare_to=USD,EUR"
             return response([

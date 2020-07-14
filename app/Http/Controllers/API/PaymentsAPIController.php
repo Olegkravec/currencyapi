@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\Auth;
 
 class PaymentsAPIController extends Controller
 {
+    /**
+     * Create  new payment intent
+     * @return array|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function create(){
         $user = Auth::guard("api")->user();
         $stripeCustomer = $user->createOrGetStripeCustomer();
@@ -18,6 +22,12 @@ class PaymentsAPIController extends Controller
         ]);
     }
 
+    /**
+     * Store created payment intent
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function storeMethod(Request $request){
         $user = Auth::user();
         $paymentMethodID = $request->get('payment_method');

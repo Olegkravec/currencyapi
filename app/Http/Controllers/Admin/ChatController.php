@@ -52,6 +52,7 @@ class ChatController extends Controller
     /**
      * Start new conversation with selected user
      * @param $user_id
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function new_conversion($user_id){
         $user = User::find($user_id);
