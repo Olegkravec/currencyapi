@@ -9,6 +9,8 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Cashier\Subscription;
+use Stripe\Plan;
+use Stripe\Stripe;
 
 class SubscriptionsResourceController extends Controller
 {
@@ -47,8 +49,8 @@ class SubscriptionsResourceController extends Controller
             flash("User not found!")->error();
             return redirect()->back();
         }
-        \Stripe\Stripe::setApiKey(env("STRIPE_SECRET"));
-        $plans = \Stripe\Plan::all(['active'=>true]);
+        Stripe::setApiKey(env("STRIPE_SECRET"));
+        $plans = Plan::all(['active'=>true]);
         return view("subscriptions.create")->with([
             'user' => $user,
             'plans' => $plans
@@ -74,8 +76,8 @@ class SubscriptionsResourceController extends Controller
             flash("User doesnt has a default payment method")->error();
             return redirect()->back();
         }
-        \Stripe\Stripe::setApiKey(env("STRIPE_SECRET"));
-        $plan = \Stripe\Plan::retrieve($request->validated()['plan_id']);
+        Stripe::setApiKey(env("STRIPE_SECRET"));
+        $plan = Plan::retrieve($request->validated()['plan_id']);
         $user->newSubscription($plan->nickname, $plan->id)->create($paymentMethod->id);
 
         flash("Subscription was successfully created!")->success();
@@ -107,8 +109,8 @@ class SubscriptionsResourceController extends Controller
             flash("Subscription is not exist")->error();
             return redirect()->back();
         }
-        \Stripe\Stripe::setApiKey(env("STRIPE_SECRET"));
-        $plans = \Stripe\Plan::all(['active'=>true]);
+        Stripe::setApiKey(env("STRIPE_SECRET"));
+        $plans = Plan::all(['active'=>true]);
         return view("subscriptions.edit")->with([
             "subscription" => $subscription,
             "plans" => $plans
@@ -129,7 +131,7 @@ class SubscriptionsResourceController extends Controller
     {
         $subscription = Subscription::find($id);
         $user = User::find($subscription->user_id);
-        \Stripe\Stripe::setApiKey(env("STRIPE_SECRET"));
+        Stripe::setApiKey(env("STRIPE_SECRET"));
         if($subscription->stripe_plan !== $request->validated()['plan_id']){
             $user->subscription($subscription->name)->cancelNow();
 
@@ -140,7 +142,7 @@ class SubscriptionsResourceController extends Controller
                 return redirect()->back();
             }
 
-            $plan = \Stripe\Plan::retrieve($request->validated()['plan_id']);
+            $plan = Plan::retrieve($request->validated()['plan_id']);
             $user->newSubscription($plan->nickname, $plan->id)->create($paymentMethod->id);
         }
 

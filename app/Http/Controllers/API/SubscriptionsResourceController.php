@@ -8,6 +8,8 @@ use App\Http\Requests\StoreSubscriptionRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Cashier\Subscription;
+use Stripe\Plan;
+use Stripe\Stripe;
 
 class SubscriptionsResourceController extends Controller
 {
@@ -60,8 +62,8 @@ class SubscriptionsResourceController extends Controller
                 "message" => "Should add payment method first",
             ], 403);
         }
-        \Stripe\Stripe::setApiKey(env("STRIPE_SECRET"));
-        $plans = \Stripe\Plan::retrieve($request->validated()['plan']);
+        Stripe::setApiKey(env("STRIPE_SECRET"));
+        $plans = Plan::retrieve($request->validated()['plan']);
         $subscription_id = $plans->nickname;
 
         if ($user->subscribed($subscription_id)) {
@@ -165,8 +167,8 @@ class SubscriptionsResourceController extends Controller
      */
     public function getPlans(){
         $user = Auth::guard("api")->user();
-        \Stripe\Stripe::setApiKey(env("STRIPE_SECRET"));
-        $plans = \Stripe\Plan::all(['active'=>true]);
+        Stripe::setApiKey(env("STRIPE_SECRET"));
+        $plans = Plan::all(['active'=>true]);
 
         return response([
             "plans" => $plans,
