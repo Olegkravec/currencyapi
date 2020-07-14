@@ -17,28 +17,24 @@
                     <tr>
                         <th>ID</th>
                         <th>Name</th>
-                        <th>Message</th>
+                        <th>Type</th>
                         <th>Action</th>
                     </tr>
-                    @foreach($conversations['rooms'] as $conversation)
+                    @foreach($conversations as $conversation)
                         <tr>
-                            <td>{{$conversation['room']->id}}</td>
+                            <td>{{$conversation->id}}</td>
                             <td>
-                                {{$conversation['room_name']}}
+                                {{$conversation->name}}
                             </td>
                             <td>
-                                @if(empty($conversation['room']['messages'][0]))
-                                    {{--empty conversation--}}
+                                @if($conversation->isGroup)
+                                    Group
                                 @else
-                                    @if(strlen($conversation['room']['messages'][0]->message) > 15) {{-- if message too big we should to truncate --}}
-                                        {{ substr($conversation['room']['messages'][0]->message, 0, 15) . "..." }}
-                                    @else
-                                        {{ $conversation['room']['messages'][0]->message }} {{-- or echo all --}}
-                                    @endif
+                                    Direct
                                 @endif
                             </td>
                             <td>
-                                <a href="{{ route("chats_conversion", ["chat_id" => $conversation['room']->id]) }}" class="btn-xs btn-warning">Join conversation</a>
+                                <a href="{{ route("chats_conversion", ["chat_id" => $conversation->id]) }}" class="btn-xs btn-warning">Join conversation</a>
                             </td>
                         </tr>
                     @endforeach

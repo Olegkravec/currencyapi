@@ -20,10 +20,15 @@ class ChatController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(){
-        $my_rooms = RoomsModel::buildConversationModelFor(Auth::id());
+        $my_rooms_first = RoomsModel::buildConversationModelFor(Auth::id());
 
+        // I will remap collection for building rooms model with members content
+        $my_rooms_remaped = $my_rooms_first->map(function (RoomsModel $room) {
+            $room->members = $room->getMembersAsUser();
+            return $room;
+        });
         return view('chats.index')->with([
-            "conversations" => $my_rooms
+            "conversations" => $my_rooms_remaped
         ]);
     }
 
@@ -91,6 +96,7 @@ class ChatController extends Controller
         broadcast(new MessageFiredEvent($room, Auth::user(), $request->validated()));
 
         {
+            // Store message in DB
             $message = new MessagesModel();
             $message->room_id = $room_id;
             $message->user_id = Auth::id();

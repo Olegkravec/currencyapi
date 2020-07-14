@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,36 +22,10 @@ class RoomsModel extends Model
      * @return array
      */
     public static function buildConversationModelFor($user_id){
-        $response = [
-            "rooms" => [],
-        ];
-
-        $rooms = RoomsModel::join("room_members", "room_members.room_id", "=", "rooms.id")->where("room_members.user_id", $user_id)->get("rooms.*");
-        foreach ($rooms as $room){
-            $members = $room->getMembers();
-
-            $conversation = [
-                "room" => $room,
-                "members" => [],
-                "room_name" => "",
-            ];
-
-            foreach ($members as $member){
-                $user = $member->getMember();
-                if($user->id !== Auth::id())
-                    $conversation['room_name'] = $user->name;
-
-                if(empty($conversation['members'][$user->id]))
-                    $conversation['members'][$user->id] = $user;
-            }
-
-            if(count($conversation['members']) > 2){
-                $conversation['room_name'] = "Room #{$room->id}";
-            }
-            $conversation['room']['messages'] = $room->getLastMessage();
-            $response['rooms'][$room->id] = $conversation;
-        }
-        return $response;
+        $rooms = RoomsModel::join("room_members", "room_members.room_id", "=", "rooms.id")
+            ->where("room_members.user_id", $user_id)
+            ->get("rooms.*");
+        return $rooms;
     }
 
     /**
@@ -59,6 +34,20 @@ class RoomsModel extends Model
      */
     public function getMembers(){
         return $this->hasMany('App\Models\RoomsMembersModel', 'room_id', 'id')->get();
+    }
+
+    /**
+     * Get all members of the room
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getMembersAsUser(){
+        return $this->hasMany('App\Models\RoomsMembersModel', 'room_id', 'id')
+            ->get()
+            ->map(function (RoomsMembersModel $member){
+                return User::find($member->user_id);
+        })->reject(function ($member) {
+                return empty($member);
+            })->all();
     }
 
     /**
