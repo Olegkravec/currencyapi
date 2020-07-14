@@ -117,4 +117,27 @@ class RoomsModel extends Model
     }
 
 
+    public static function createRoomWithMembers(string $name, int $member_one, int $member_two){
+        $room = new RoomsModel();
+        $room->name = $name;
+        $room->save();
+
+        {
+            // Add myself to the room
+            $member = new RoomsMembersModel();
+            $member->room_id = $room->id;
+            $member->user_id = $member_one;
+            $member->save();
+        }
+        {
+            // Add selected user to the room
+            $member = new \App\Models\RoomsMembersModel();
+            $member->room_id = $room->id;
+            $member->user_id = $member_two;
+            $member->save();
+        }
+        return $room;
+    }
+
+
 }

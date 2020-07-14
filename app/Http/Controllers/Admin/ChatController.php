@@ -71,25 +71,9 @@ class ChatController extends Controller
         if(!empty($room) and !empty($room[0])){
             return redirect()->route("chats_conversion", ["chat_id" => $room[0]->room_id]);
         }
-        // Create room for conversation
-        $room = new RoomsModel();
-        $room->name = $user->name;
-        $room->save();
 
-        {
-            // Add myself to the room
-            $member = new RoomsMembersModel();
-            $member->room_id = $room->id;
-            $member->user_id = Auth::id();
-            $member->save();
-        }
-        {
-            // Add selected user to the room
-            $member = new \App\Models\RoomsMembersModel();
-            $member->room_id = $room->id;
-            $member->user_id = $user->id;
-            $member->save();
-        }
+        // Create room for conversation
+        $room = RoomsModel::createRoomWithMembers($user->name, Auth::id(), $user->id);
 
         return redirect()->route("chats_conversion", ["chat_id" => $room->id]);
     }
@@ -103,6 +87,7 @@ class ChatController extends Controller
     public function fireMessage(FireMessageRequest $request, $room_id){
         $room = RoomsModel::find($room_id);
 
+        // Send web-socket broadcast to selected room
         broadcast(new MessageFiredEvent($room, Auth::user(), $request->validated()));
 
         {
@@ -130,6 +115,11 @@ class ChatController extends Controller
         ]);
     }
 
+    /**
+     * @param InviteMembersToRoomRequest $request
+     * @param $room_id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function saveInvites(InviteMembersToRoomRequest $request, $room_id){
         $room = RoomsModel::find($room_id);
 
