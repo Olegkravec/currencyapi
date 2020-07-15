@@ -3,7 +3,7 @@
 @section('title', 'Create new subscription ' . env("APP_NAME"))
 
 @section('content_header')
-    <h1>Create new subscription</h1>
+    <h1>{{ __('Create new subscription') }}</h1>
 @stop
 
 @section('content')
@@ -23,7 +23,7 @@
                         </div>
                         <div class="card-body ">
                             <div class="row">
-                                <label class="col-md-2 col-form-label">Select plan</label>
+                                <label class="col-md-2 col-form-label">{{ __('Select plan') }}</label>
                                 <div class="col-md-7">
                                     <select class="se1lect2-plans" name="plan_id">
                                         @foreach($plans as $plan)

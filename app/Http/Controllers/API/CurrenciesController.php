@@ -127,9 +127,6 @@ class CurrenciesController extends Controller
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */
     public function getPairsComparing(CompareCurrencyRequest $request, $main_currency){
-        /**
-         * TODO: REFACTOR THIS
-         */
         $currencies = $request->validated()['compare_to'];
         if(strpos($currencies, ",") === false) // Because request should be like "?compare_to=USD,EUR"
             return response([

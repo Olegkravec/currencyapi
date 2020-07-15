@@ -13,7 +13,7 @@
 @stop
 
 @section('content_header')
-    <h1>Edit subscription #{{$subscription->id}}</h1>
+    <h1>{{ __('Edit subscription #:id', ['id' => $subscription->id]) }}</h1>
 @stop
 
 @section('content')
@@ -33,7 +33,7 @@
                         </div>
                         <div class="card-body ">
                             <div class="row">
-                                <label class="col-md-2 col-form-label">Select plan</label>
+                                <label class="col-md-2 col-form-label">{{ __('Select plan') }}</label>
                                 <div class="col-md-7">
                                     <select class="se1lect2-plans" name="plan_id">
                                         @foreach($plans as $plan)

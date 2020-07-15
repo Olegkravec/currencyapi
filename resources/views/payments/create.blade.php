@@ -1,11 +1,11 @@
 <html>
 <head>
-    <title>Create new payment</title>
+    <title>{{ __('Create new payment') }}</title>
     <link rel="stylesheet" href="/css/app.css">
 </head>
 <body>
 <div align="center" class="payments-create-form">
-    <label for="card-holder-name">Card Holder:<br />
+    <label for="card-holder-name">{{ __('Card Holder') }}:<br />
         <input id="card-holder-name" type="text">
     </label>
 
@@ -13,7 +13,7 @@
     <div id="card-element"></div>
 
     <button id="card-button" data-secret="{{ $intent->client_secret }}">
-        Create Payment Method
+        {{ __('Create Payment Method') }}
     </button>
 </div>
 

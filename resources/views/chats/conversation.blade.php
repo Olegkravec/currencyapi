@@ -21,12 +21,12 @@
             <div class="box-body table-responsive no-padding">
                     <div class="col-md-12">
                         <a href="{{ route('chats.invite', $room->id) }}">
-                            <div class="btn btn-xs btn-dark">Invite more members</div>
+                            <div class="btn btn-xs btn-dark">{{ __('Invite more members') }}</div>
                         </a>
                         <div class="box box-warning direct-chat direct-chat-warning">
                             <div class="box-header with-border">
-                                <h3 class="box-title">Direct Chat <small><small>@{{ isTyping }}</small></small></h3>
-                                <span><b>Who online</b>:
+                                <h3 class="box-title">{{ __('Direct Chat') }} <small><small>@{{ isTyping }}</small></small></h3>
+                                <span><b>{{ __('Who online') }}</b>:
                                     <span v-for="user in activeUsers">
                                         <b> @{{ user.user.name }} </b>
                                     </span>
@@ -65,9 +65,9 @@
                             <!-- /.box-body -->
                             <div class="box-footer">
                                 <div class="input-group">
-                                    <input v-model="enteredMessage" v-on:keyup="startTyping" v-on:keyup.enter="sendMessage" placeholder="Type Message ..." class="form-control">
+                                    <input v-model="enteredMessage" v-on:keyup="startTyping" v-on:keyup.enter="sendMessage" placeholder="{{ __('Type Message...') }}" class="form-control">
                                     <span class="input-group-btn">
-                                            <button v-on:click="sendMessage" type="button" class="btn btn-warning btn-flat">Send</button>
+                                            <button v-on:click="sendMessage" type="button" class="btn btn-warning btn-flat">{{ __('Send') }}</button>
                                         </span>
                                 </div>
                             </div>

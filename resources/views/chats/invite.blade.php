@@ -3,7 +3,7 @@
 @section('title', 'Invite members ' . env("APP_NAME"))
 
 @section('content_header')
-    <h1>Invite more to room #{{$room->id}}</h1>
+    <h1>{{ __('Invite more to room #:id', ['id' => $room->id]) }}</h1>
 @stop
 
 @section('content')
@@ -15,9 +15,9 @@
                 <table class="table table-hover">
                     <tbody>
                     <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Action</th>
+                        <th>{{ __('ID') }}</th>
+                        <th>{{ __('Name') }}</th>
+                        <th>{{ __('Action') }}</th>
                     </tr>
                     <form method="post" action="{{route("chats.saveInvites", $room->id)}}">
                         @csrf
@@ -37,7 +37,7 @@
                             </tr>
                         @endforeach
                         <div class="card-footer ml-auto mr-auto">
-                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button type="submit" class="btn btn-primary">{{ __('Save') }}</button>
                         </div>
                         @if ($errors->has('id'))
                             <span id="users-error" class="error text-danger" for="input-users">{{ $errors->first('id') }}</span>

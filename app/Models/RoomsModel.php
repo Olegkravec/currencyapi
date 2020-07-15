@@ -45,7 +45,7 @@ class RoomsModel extends Model
             ->get()
             ->map(function (RoomsMembersModel $member){
                 return User::find($member->user_id);
-        })->reject(function ($member) {
+            })->reject(function ($member) {
                 return empty($member);
             })->all();
     }

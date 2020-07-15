@@ -5,10 +5,10 @@
 @section('content_header')
     @can("edit subscription")
         <div class="no-margin pull-right">
-            <a href="{{ route('subscriptions.createAssigned', $user->id) }}"><div class="btn btn-success btn-xs">Make new subscription</div></a>
+            <a href="{{ route('subscriptions.createAssigned', $user->id) }}"><div class="btn btn-success btn-xs">{{ __('Make new subscription') }}</div></a>
         </div>
     @endcan
-    <h1>Subscriptions list for user <b>{{ $user->name }}</b> </h1>
+    <h1>{!!  __('Subscriptions list for user <b>:name</b>', ['name' => $user->name])  !!}</h1>
 @stop
 
 @section('content')
@@ -20,10 +20,10 @@
                 <table class="table table-hover">
                     <tbody>
                     <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Status</th>
-                        <th>Actions</th>
+                        <th>{{ __('ID') }}</th>
+                        <th>{{ __('Name') }}</th>
+                        <th>{{ __('Status') }}</th>
+                        <th>{{ __('Actions') }}</th>
                     </tr>
                     @foreach($subscriptions as $subscription)
                         <tr class="bg-{{ $subscription->stripe_status == "active" ? 'white' : 'black' }}">

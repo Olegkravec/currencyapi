@@ -3,7 +3,7 @@
 @section('title', 'Chats ' . env("APP_NAME"))
 
 @section('content_header')
-    <h1>Chat list</h1>
+    <h1>{{ __('Chat list') }}</h1>
 @stop
 
 @section('content')
@@ -15,10 +15,10 @@
                 <table class="table table-hover">
                     <tbody>
                     <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Type</th>
-                        <th>Action</th>
+                        <th>{{ __('ID') }}</th>
+                        <th>{{ __('Name') }}</th>
+                        <th>{{ __('Type') }}</th>
+                        <th>{{ __('Action') }}</th>
                     </tr>
                     @foreach($conversations as $conversation)
                         <tr>
@@ -28,13 +28,13 @@
                             </td>
                             <td>
                                 @if($conversation->isGroup)
-                                    Group
+                                    {{ __('Group') }}
                                 @else
-                                    Direct
+                                    {{ __('Direct') }}
                                 @endif
                             </td>
                             <td>
-                                <a href="{{ route("chats_conversion", ["chat_id" => $conversation->id]) }}" class="btn-xs btn-warning">Join conversation</a>
+                                <a href="{{ route("chats_conversion", ["chat_id" => $conversation->id]) }}" class="btn-xs btn-warning">{{ __('Join conversation') }}</a>
                             </td>
                         </tr>
                     @endforeach

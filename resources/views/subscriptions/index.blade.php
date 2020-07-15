@@ -3,7 +3,7 @@
 @section('title', 'Subscriptions ' . env("APP_NAME"))
 
 @section('content_header')
-    <h1>Subscriptions list</h1>
+    <h1>{{ __('Subscriptions list') }}</h1>
 @stop
 
 @section('content')
@@ -15,11 +15,11 @@
                 <table class="table table-hover">
                     <tbody>
                     <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Status</th>
-                        <th>User</th>
-                        <th>Action</th>
+                        <th>{{ __('ID') }}</th>
+                        <th>{{ __('Name') }}</th>
+                        <th>{{ __('Status') }}</th>
+                        <th>{{ __('User') }}</th>
+                        <th>{{ __('Action') }}</th>
                     </tr>
 
                     @foreach($subscriptions as $subscription)
@@ -31,7 +31,7 @@
                             <td>
                                 @can("edit subscription")
                                     @if($subscription->stripe_status == "active")
-                                        <a href="{{ route('subscriptions.edit', $subscription->id) }}" class="btn btn-xs btn-primary">Edit</a>
+                                        <a href="{{ route('subscriptions.edit', $subscription->id) }}" class="btn btn-xs btn-primary">{{ __('Edit') }}</a>
                                     @endif
                                 @endcan
                             </td>

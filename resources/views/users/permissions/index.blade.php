@@ -6,7 +6,7 @@
     <div class="no-margin pull-right">
         <a href="{{ route('users_permission_grant', ["user_id" => $user->id]) }}"><div class="btn btn-success btn-xs">Grant new permission</div></a>
     </div>
-    <h1>Permission list for user <b>{{ $user->name }}</b> </h1>
+    <h1>{!! __('Permission list for user <b>:name</b>', ['name'=>$user->name]) !!} </h1>
 @stop
 
 @section('content')
@@ -18,11 +18,11 @@
                 <table class="table table-hover">
                     <tbody>
                     <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Guard</th>
-                        <th>Created At</th>
-                        <th>Actions</th>
+                        <th>{{ __('ID') }}</th>
+                        <th>{{ __('Name') }}</th>
+                        <th>{{ __('Guard') }}</th>
+                        <th>{{ __('Created At') }}</th>
+                        <th>{{ __('Actions') }}</th>
                     </tr>
                     @foreach($permissions as $permission)
                         <tr class="users users-{{$permission->id}}">
@@ -35,7 +35,7 @@
                                     <form method="post" action="{{ route('users_permission_revoke', ['user_id' => $user->id, 'permission_id' => $permission->id]) }}">
                                         @csrf
                                         @method('delete')
-                                        <button class="btn btn-xs btn-danger" type="submit">Revoke Permission</button>
+                                        <button class="btn btn-xs btn-danger" type="submit">{{ __('Revoke Permission') }}</button>
                                     </form>
                                 @endcan
                             </td>

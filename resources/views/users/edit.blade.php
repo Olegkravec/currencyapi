@@ -3,7 +3,7 @@
 @section('title', 'Edit User #' . $user->id . " " . env("APP_NAME"))
 
 @section('content_header')
-    <h1>Edit User #{{$user->id}}</h1>
+    <h1>{{ __("Edit User #:attribute", ['attribute' => $user->id]) }}</h1>
 @stop
 
 @section('content')
