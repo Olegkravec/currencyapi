@@ -8,6 +8,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\API\CompareCurrencyRequest;
 use App\Http\Requests\API\ConvertCurrencyAPIRequest;
 use App\Http\Requests\API\GetPairAPIRequest;
+use App\Models\Responses\BaseResponseModel;
+use App\Models\Responses\CurrencyComparingResponseModel;
+use App\Models\Responses\PairComparingResponseModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Cashier\Subscription;
@@ -129,48 +132,32 @@ class CurrenciesController extends Controller
     public function getPairsComparing(CompareCurrencyRequest $request, $main_currency){
         $currencies = $request->validated()['compare_to'];
         if(strpos($currencies, ",") === false) // Because request should be like "?compare_to=USD,EUR"
-            return response([
-                "status" => 'error',
-                'message' => "Bad request. You should explode currencies by ','"
-            ]);
+            return response(new BaseResponseModel('error', null, "Bad request. You should explode currencies by ','"));
 
         $currencies = explode(",", $currencies);
 
-        $response_model = [
-            "main_currency" => $main_currency,
-            "compares" => []
-        ];
+        $response_model = new CurrencyComparingResponseModel();
 
         foreach ($currencies as $currency){
             $pair = $main_currency.$currency;
-            $default_pair_model = [
-                "direction" => "same",
-                "difference" => 0.0,
-                "old_price" => 0.0,
-                "new_price" => 0.0,
-                "from" => $main_currency,
-                "to" => $currency,
-            ];
+            $default_pair_model = new PairComparingResponseModel();
             $currency = CurrenciesModel::findOrRetrievePair($pair);
 
-            $default_pair_model['new_price'] = (float)$currency['new']->{$pair};
+            $default_pair_model->new_price = (float)$currency['new']->{$pair};
             if(!empty($currency['old'])){
-                $default_pair_model['old_price'] = (float)$currency['old']->{$pair};
+                $default_pair_model->old_price = (float)$currency['old']->{$pair};
                 if($currency['old']->{$pair} > $currency['new']->{$pair}){
-                    $default_pair_model['direction'] = "descending";
-                    $default_pair_model['difference'] = "-" . ($currency['old']->{$pair} - $currency['new']->{$pair});
+                    $default_pair_model->direction = "descending";
+                    $default_pair_model->difference = "-" . ($currency['old']->{$pair} - $currency['new']->{$pair});
                 }
                 if($currency['new']->{$pair} > $currency['old']->{$pair}){
-                    $default_pair_model['direction'] = "ascending";
-                    $default_pair_model['difference'] = "+" . ($currency['new']->{$pair} - $currency['old']->{$pair});
+                    $default_pair_model->direction = "ascending";
+                    $default_pair_model->difference = "+" . ($currency['new']->{$pair} - $currency['old']->{$pair});
                 }
             }
-            $response_model["compares"][$pair] = $default_pair_model;
+            $response_model->compares[$pair] = $default_pair_model;
         }
 
-        return response([
-            "status" => 'success',
-            'data' => $response_model
-        ]);
+        return response(new BaseResponseModel("success", $response_model));
     }
 }
