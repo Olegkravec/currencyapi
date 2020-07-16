@@ -15,6 +15,7 @@ use Mockery;
 use RonasIT\Support\AutoDoc\Http\Middleware\AutoDocMiddleware;
 use RonasIT\Support\AutoDoc\Services\SwaggerService;
 use RonasIT\Support\AutoDoc\Tests\AutoDocTestCase;
+use Stripe\StripeClient;
 
 abstract class AuthorizedTestCase extends TestCase
 {
@@ -60,7 +61,6 @@ abstract class AuthorizedTestCase extends TestCase
         $response = $this->json('post', '/api/v1/users', $this->generated_user_model);
 
         $content = json_decode($response->content());
-
         $this->assertNotEmpty($content->status, "Returned response has not valid content");
         $this->assertEquals($content->status, "success","Response status is not successfully");
         $response->assertStatus(201);
@@ -105,12 +105,17 @@ abstract class AuthorizedTestCase extends TestCase
         /**
          * Attach payment method to already created user
          */
-        $stripe = new \Stripe\StripeClient(env("STRIPE_SECRET"));
+        $stripe = new StripeClient(env("STRIPE_SECRET"));
 
         $stripe->paymentMethods->attach(
             $this->payment_method->id,
             ['customer' => $this->authorized_user->stripe_id]
         );
         $this->authorized_user->updateDefaultPaymentMethod( $this->payment_method->id );
+    }
+
+    public function createDefaultSubscription(){
+        $this->assertNotEmpty($this->authorized_user, "Authorized user doesn't exist, but required");
+        $result = $this->authorized_user->newSubscription("premium", env("STRIPE_PREMIUM_PLAN_ID"))->create($this->payment_method->id);
     }
 }

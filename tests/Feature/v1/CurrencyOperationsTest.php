@@ -47,6 +47,7 @@ class CurrencyOperationsTest extends AuthorizedTestCase
     {
         if(empty($this->payment_method)){
             parent::createDefaultPaymentMethod();
+            parent::createDefaultSubscription();
         }
 
         $response = $this->json('get',"/api/v1/currencies/{$this->testable_pair}/history",[
@@ -56,11 +57,9 @@ class CurrencyOperationsTest extends AuthorizedTestCase
         ]);
 
         $content = json_decode($response->content());
-        $this->assertNotEmpty(null, $response->content());
-
 
         $response->assertStatus(200);
         $this->assertNotEmpty($content->status, "Response structure is not valid");
-        $this->assertEquals($content->status, "error", "Response status is not 'error'");
+        $this->assertEquals($content->status, "success", "Response status is not 'success'");
     }
 }
