@@ -18,10 +18,11 @@ use Laravel\Cashier\Subscription;
 class CurrenciesController extends Controller
 {
     /**
-     * @description CURRENCY SOMETHING
+     * @description
+     *
      *
      * @summary
-     * HELLO MY FRIEND
+     *
      *
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|\Symfony\Component\HttpFoundation\Response
      */
@@ -52,10 +53,10 @@ class CurrenciesController extends Controller
     /**
      *
      * @summary
-     * Retrieve selected pair from controller
+     * Currency History
      *
      * @description
-     * CURRENCY SOMETHING
+     * Get history of selected pair
      *
      * @param GetPairAPIRequest $request
      * @param $pair
@@ -139,16 +140,22 @@ class CurrenciesController extends Controller
      * @summary
      * Returns response model with comparations data about main and comparable currency pairs.
      *
+     * @description
+     * Method returns data about comparable pairs, like difference, direction, ascending or descending...
+     *
+     * @pair
+     * Part of URI that indicates system about main of comparable currency 111
+     *
      * @param CompareCurrencyRequest $request
      * @param $main_currency
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */
     public function getPairsComparing(CompareCurrencyRequest $request, $main_currency){
         $currencies = $request->validated()['compare_to'];
-        if(strpos($currencies, ",") === false) // Because request should be like "?compare_to=USD,EUR"
-            return response()->json(new BaseResponseModel('error', null, "Bad request. You should explode currencies by ','"));
-
-        $currencies = explode(",", $currencies);
+        if(strpos($currencies, ",") !== false) // Because request should be like "?compare_to=USD,EUR"
+        {
+            $currencies = explode(",", $currencies);
+        }
 
         $response_model = new CurrencyComparingResponseModel();
         $response_model->main_currency = $main_currency;

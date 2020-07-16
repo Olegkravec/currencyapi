@@ -1,0 +1,17 @@
+
+PARAMS 0: {"in":"body","name":"body","description":"","required":true,"schema":{"$ref":"#\/definitions\/apiv1usersObject"}}
+FOUND 0: null
+PARAMS 0: {"in":"body","name":"body","description":"","required":true,"schema":{"$ref":"#\/definitions\/apiv1signinObject"}}
+FOUND 0: null
+PARAMS 0: {"in":"path","name":"pair","description":"","required":true,"type":"string"}
+FOUND 0: "Part of URI that indicates system about main of comparable currency 111"
+PARAMS 1: {"in":"query","name":"compare_to","description":"required, string","type":"string","required":true}
+FOUND 1: null
+PARAMS 0: {"in":"body","name":"body","description":"","required":true,"schema":{"$ref":"#\/definitions\/apiv1usersObject"}}
+FOUND 0: null
+PARAMS 0: {"in":"body","name":"body","description":"","required":true,"schema":{"$ref":"#\/definitions\/apiv1signinObject"}}
+FOUND 0: null
+PARAMS 0: {"in":"path","name":"pair","description":"Part of URI that indicates system about main of comparable currency 111","required":true,"type":"string"}
+FOUND 0: "Part of URI that indicates system about main of comparable currency 111"
+PARAMS 1: {"in":"query","name":"compare_to","description":"required, string","type":"string","required":true}
+FOUND 1: null

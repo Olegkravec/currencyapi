@@ -4,6 +4,7 @@
 namespace App\Services;
 
 
+use function foo\func;
 use Illuminate\Container\Container;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -243,9 +244,6 @@ class CustomSwaggerService
             return;
         }
 
-
-
-
         {
             // HANDLE REQUEST ANNOTATION
             $annotations = $this->annotationReader->getClassAnnotations($concreteRequest);
@@ -256,14 +254,29 @@ class CustomSwaggerService
         }
         {
             // HANDLE CONTROLLER ANNOTATION
-//            $this->saveDescription($concreteRequest, $controller_annotations);
-
             $summary = $controller_annotations->get('summary');
             $this->item['summary'] = $summary;
-            file_put_contents("swagger_log.log", "\nSUMMARY: ".$summary, 8);
+
             $descr = $controller_annotations->get('description');
             $this->item['description'] = $descr;
-            file_put_contents("swagger_log.log", "\nDESCR: ".$descr, 8);
+
+            /*$this->item['parameters'] = collect()->map(function ($param) use ($controller_annotations) {
+                if(!empty($controller_annotations->get($param->name))){
+                    $param->description = $controller_annotations->get($param->name);
+                }
+
+                return $param;
+            });*/
+
+            foreach ($this->item['parameters'] as $key => $parameter){
+//                file_put_contents("swagger.log", "\nPARAMS $key: " . json_encode($parameter), 8);
+//                file_put_contents("swagger.log", "\nFOUND $key: " . json_encode($controller_annotations->get($parameter['name'])), 8);
+
+                if(!empty($controller_annotations->get($parameter['name']))){
+                    $this->item['parameters'][$key]["description"] = $controller_annotations->get($parameter['name']);
+                }
+            }
+
         }
     }
 

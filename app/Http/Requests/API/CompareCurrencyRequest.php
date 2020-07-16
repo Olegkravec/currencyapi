@@ -5,6 +5,13 @@ namespace App\Http\Requests\API;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
+
+/**
+ * @_200 Currency comparing was successfully done
+ * @_403 Unauthorized or premium subscription not found
+ *
+ * @pair Part of URI that indicates system about main of comparable currency
+ */
 class CompareCurrencyRequest extends FormRequest
 {
     /**

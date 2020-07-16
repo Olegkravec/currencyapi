@@ -9,7 +9,7 @@ use RonasIT\Support\Traits\MigrationTrait;
 use Tests\AuthorizedTestCase;
 use Tests\TestCase;
 
-class CurrencyOperationsTest extends AuthorizedTestCase
+class CurrencyHistoryTest extends AuthorizedTestCase
 {
     private $testable_from = "USD";
     private $testable_to = "UAH";

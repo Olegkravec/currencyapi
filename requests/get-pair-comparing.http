@@ -32,7 +32,7 @@ client.global.set("selected_second_currency", response.body.currencies[3]);
 ###
 
 #GET http://laravel.api/api/v1/currencies/{{selected_main_currency}}/compare?compare_to={{selected_first_currency}}, {{selected_second_currency}}
-GET http://laravel.api/api/v1/currencies/USD/compare?compare_to=UAH,RUB
+GET http://laravel.api/api/v1/currencies/USD/compare?compare_to=UAH
 Content-Type: application/json
 Accept: application/json
 Authorization: Bearer {{bearer_token}}
