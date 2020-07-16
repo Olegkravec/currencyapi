@@ -251,8 +251,31 @@ class CustomSwaggerService
 
 
             $descr = $controller_annotations->get('description');
+
             if(!empty($descr))
                 $this->item['description'] = $descr;
+
+            foreach ($controller_annotations->getAsArray("header") as $key => $value){
+                file_put_contents("swagger_h.log", "\n F:\t" . json_encode([$key, $value]), 8);
+
+                // EXAMPLE: // @header Authorization|required|JWT authorization token
+                $parameterDefinition = [
+                    'in' => 'header',
+                    'name' => "",
+                    'description' => "",
+                    "required" => false,
+                    'type' => "string"
+                ];
+
+                $header_args = explode("|", trim($value));
+                if(count($header_args) !== 3) continue; // Some args not exist
+
+                $parameterDefinition['name'] = $header_args[0];
+                $parameterDefinition['required'] = $header_args[1] === "required";
+                $parameterDefinition['description'] = $header_args[2];
+
+                $this->item['parameters'][] = $parameterDefinition;
+            }
 
             foreach ($this->item['parameters'] as $key => $parameter){
                 if(!empty($controller_annotations->get($parameter['name']))){

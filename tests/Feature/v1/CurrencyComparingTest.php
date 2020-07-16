@@ -27,7 +27,7 @@ class CurrencyComparingTest extends AuthorizedTestCase
     /**
      * Test should be failed as subscriptions missing
      */
-    public function testGetPairHistoryWithoutSubscription()
+    public function testGetPairComparesWithoutSubscription()
     {
         $response = $this->json('get',"/api/v1/currencies/{$this->testable_pair}/compare",[],[
             "Authorization" => "Bearer {$this->access_token}"
@@ -36,7 +36,7 @@ class CurrencyComparingTest extends AuthorizedTestCase
         $response->assertStatus(403);
     }
 
-    public function testGetPairHistoryWithSubscription()
+    public function testGetPairComparesWithSubscription()
     {
         if(empty($this->payment_method)){
             parent::createDefaultPaymentMethod();

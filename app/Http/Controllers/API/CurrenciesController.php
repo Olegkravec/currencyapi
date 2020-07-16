@@ -19,11 +19,9 @@ class CurrenciesController extends Controller
 {
     /**
      * @description
-     *
-     *
+     * Receives arrays of currencies and pairs
      * @summary
-     *
-     *
+     * Get all currency pair
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|\Symfony\Component\HttpFoundation\Response
      */
     public function getAll(){
@@ -79,6 +77,7 @@ class CurrenciesController extends Controller
      * @summary
      * Convert currency into another currency
      *
+     * @header Authorization|required|JWT authorization token
      * @param ConvertCurrencyAPIRequest $request
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|\Symfony\Component\HttpFoundation\Response
      * @throws \Exception
@@ -117,6 +116,8 @@ class CurrenciesController extends Controller
      *
      * @pair Selected currency pair, for ex. "USD"
      *
+     * @header Authorization|required|JWT authorization token
+     *
      * @param $pair
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|\Symfony\Component\HttpFoundation\Response
      */
@@ -154,6 +155,8 @@ class CurrenciesController extends Controller
      *
      * @compare_to_example
      * {"compare_to":"USD,EUR"}
+     *
+     * @header Authorization|required|JWT authorization token
      *
      * @param CompareCurrencyRequest $request
      * @param $main_currency
