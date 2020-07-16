@@ -18,12 +18,17 @@ class BaseResponseModel
      * @param string $status
      * @param $data
      */
-    public function __construct(string $status, $data, string $message = null)
+    public function __construct(string $status, $data, string $message = "")
     {
         $this->status = $status;
         $this->data = $data;
         $this->message = $message;
     }
+/*
+    public function __toString()
+    {
+        return json_encode(this);
+    }*/
 
 
 }

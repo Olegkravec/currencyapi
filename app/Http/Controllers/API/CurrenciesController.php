@@ -137,27 +137,13 @@ class CurrenciesController extends Controller
         $currencies = explode(",", $currencies);
 
         $response_model = new CurrencyComparingResponseModel();
+        $response_model->main_currency = $main_currency;
 
-        foreach ($currencies as $currency){
-            $pair = $main_currency.$currency;
-            $default_pair_model = new PairComparingResponseModel();
-            $currency = CurrenciesModel::findOrRetrievePair($pair);
+        collect($currencies)->map(function ($to) use ( $main_currency, &$response_model) {
+            $comparison = CurrencyHelper::comparePair($main_currency, $to);
+            $response_model->compares[$main_currency . $to] = $comparison;
+        });
 
-            $default_pair_model->new_price = (float)$currency['new']->{$pair};
-            if(!empty($currency['old'])){
-                $default_pair_model->old_price = (float)$currency['old']->{$pair};
-                if($currency['old']->{$pair} > $currency['new']->{$pair}){
-                    $default_pair_model->direction = "descending";
-                    $default_pair_model->difference = "-" . ($currency['old']->{$pair} - $currency['new']->{$pair});
-                }
-                if($currency['new']->{$pair} > $currency['old']->{$pair}){
-                    $default_pair_model->direction = "ascending";
-                    $default_pair_model->difference = "+" . ($currency['new']->{$pair} - $currency['old']->{$pair});
-                }
-            }
-            $response_model->compares[$pair] = $default_pair_model;
-        }
-
-        return response(new BaseResponseModel("success", $response_model));
+        return response()->json(new BaseResponseModel("success", $response_model));
     }
 }

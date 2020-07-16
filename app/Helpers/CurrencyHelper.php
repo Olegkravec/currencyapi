@@ -5,6 +5,7 @@ namespace App\Helpers;
 
 
 use App\CurrenciesModel;
+use App\Models\Responses\PairComparingResponseModel;
 use GuzzleHttp\Client;
 
 class CurrencyHelper
@@ -35,5 +36,31 @@ class CurrencyHelper
         }
 
         return $parsed_response->data;
+    }
+
+    public static function comparePair(string $from, string $to) : PairComparingResponseModel{
+        $pair = $from.$to;
+        $default_pair_model = new PairComparingResponseModel();
+        $default_pair_model->from = $from;
+        $default_pair_model->to = $to;
+
+        $currency = CurrenciesModel::findOrRetrievePair($pair);
+
+        $default_pair_model->new_price = (float)$currency['new']->{$pair};
+        if(!empty($currency['old'])){
+            $default_pair_model->old_price = (float)$currency['old']->{$pair};
+            if($currency['old']->{$pair} > $currency['new']->{$pair}){
+                $default_pair_model->direction = "descending";
+                $default_pair_model->difference = "-" . ($currency['old']->{$pair} - $currency['new']->{$pair});
+            }
+            if($currency['new']->{$pair} > $currency['old']->{$pair}){
+                $default_pair_model->direction = "ascending";
+                $default_pair_model->difference = "+" . ($currency['new']->{$pair} - $currency['old']->{$pair});
+            }
+            if($currency['new']->{$pair} == $currency['old']->{$pair})
+                $default_pair_model->direction = "same";
+        }
+
+        return $default_pair_model;
     }
 }

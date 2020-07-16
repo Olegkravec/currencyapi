@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\StoreSubscriptionAPIRequest;
 use App\Http\Requests\StoreSubscriptionRequest;
+use App\Models\Responses\BaseResponseModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Cashier\Subscription;
@@ -91,10 +92,7 @@ class SubscriptionsResourceController extends Controller
     {
         $user = Auth::guard("api")->user();
         if(empty($user)){
-            return response([
-                "status" => "error",
-                "message" => "User not found",
-            ], 404);
+            return response(new BaseResponseModel("error" , null, "User not found!"), 404);
         }
 
 
@@ -152,10 +150,7 @@ class SubscriptionsResourceController extends Controller
             ], 200);
         }
 
-        return response([
-            "status" => "error",
-            "message" => $response,
-        ], 200);
+        return response(new BaseResponseModel("error" , null, "Subscription canceled!"), 200);
     }
 
 
