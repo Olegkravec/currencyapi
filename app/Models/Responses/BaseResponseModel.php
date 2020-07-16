@@ -24,11 +24,5 @@ class BaseResponseModel
         $this->data = $data;
         $this->message = $message;
     }
-/*
-    public function __toString()
-    {
-        return json_encode(this);
-    }*/
-
 
 }

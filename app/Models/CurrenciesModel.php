@@ -11,7 +11,10 @@ class CurrenciesModel extends Model
     protected $table = "currencies";
 
     public static function findOrRetrievePair($pair){
-        $pair_local = self::where("pair", $pair)->orderBy("created_at", "DESC")->first("price AS $pair");
+        $pair_local = self::where("pair", $pair)
+            ->whereRaw("created_at > NOW() - INTERVAL 1 HOUR")
+            ->orderBy("created_at", "DESC")
+            ->first("price AS $pair");
         $pair_currate = CurrencyHelper::retrieve_pair($pair);
 
         {
@@ -21,6 +24,9 @@ class CurrenciesModel extends Model
             $currency->price = $pair_currate->{$pair};
             $currency->save();
         }
+
+        if(empty($pair_local->{$pair}))
+            $pair_local = $pair_currate;
 
         return [
             "old" => $pair_local,
