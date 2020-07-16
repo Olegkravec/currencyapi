@@ -132,7 +132,7 @@ class CurrenciesController extends Controller
     public function getPairsComparing(CompareCurrencyRequest $request, $main_currency){
         $currencies = $request->validated()['compare_to'];
         if(strpos($currencies, ",") === false) // Because request should be like "?compare_to=USD,EUR"
-            return response(new BaseResponseModel('error', null, "Bad request. You should explode currencies by ','"));
+            return response()->json(new BaseResponseModel('error', null, "Bad request. You should explode currencies by ','"));
 
         $currencies = explode(",", $currencies);
 
