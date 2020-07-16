@@ -8,10 +8,12 @@ use Illuminate\Container\Container;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use Minime\Annotations\AnnotationsBag;
 use Minime\Annotations\Interfaces\AnnotationsBagInterface;
 use Minime\Annotations\Reader as AnnotationReader;
 use Minime\Annotations\Parser;
 use Minime\Annotations\Cache\ArrayCache;
+use Minime\Annotations\Reader;
 use RonasIT\Support\AutoDoc\Interfaces\DataCollectorInterface;
 use RonasIT\Support\AutoDoc\Traits\GetDependenciesTrait;
 use RonasIT\Support\AutoDoc\Exceptions\WrongSecurityConfigException;
@@ -227,7 +229,13 @@ class CustomSwaggerService
         $this->saveTags();
         $this->saveSecurity();
 
+
+
         $concreteRequest = $this->getConcreteRequest();
+
+        $controller_annotations = $this->getConcreteControllerAnnotations();
+
+
 
         if (empty($concreteRequest)) {
             $this->item['description'] = '';
@@ -237,11 +245,26 @@ class CustomSwaggerService
 
 
 
-        $annotations = $this->annotationReader->getClassAnnotations($concreteRequest);
+
+        {
+            // HANDLE REQUEST ANNOTATION
+            $annotations = $this->annotationReader->getClassAnnotations($concreteRequest);
 
 
-        $this->saveParameters($concreteRequest, $annotations);
-        $this->saveDescription($concreteRequest, $annotations);
+            $this->saveParameters($concreteRequest, $annotations);
+            $this->saveDescription($concreteRequest, $annotations);
+        }
+        {
+            // HANDLE CONTROLLER ANNOTATION
+//            $this->saveDescription($concreteRequest, $controller_annotations);
+
+            $summary = $controller_annotations->get('summary');
+            $this->item['summary'] = $summary;
+            file_put_contents("swagger_log.log", "\nSUMMARY: ".$summary, 8);
+            $descr = $controller_annotations->get('description');
+            $this->item['description'] = $descr;
+            file_put_contents("swagger_log.log", "\nDESCR: ".$descr, 8);
+        }
     }
 
     private function saveHeaders($request, AnnotationsBagInterface $annotations){
@@ -480,6 +503,29 @@ class CustomSwaggerService
         return Arr::first($parameters, function ($key, $parameter) {
             return preg_match('/Request/', $key);
         });
+    }
+    public function getConcreteControllerAnnotations()
+    {
+        $controller_name = $this->request->route()->getActionName();
+        $route = $this->request->route();
+        $method = "";
+        $method_annotation = null;
+        $time = time();
+        if ($controller_name == 'Closure') {
+            return null;
+        }else{
+            $controller = $route->getController();
+
+            $pair = explode("@", (string)$controller_name);
+            $method = $pair[1];
+            $controller_name = $pair[0];
+
+            $reader = new Reader(new Parser, new ArrayCache);
+            $method_annotation = $reader->getMethodAnnotations($controller_name, $method);
+
+            return $method_annotation;
+        }
+        return new AnnotationsBag([]);
     }
 
     public function saveConsume()

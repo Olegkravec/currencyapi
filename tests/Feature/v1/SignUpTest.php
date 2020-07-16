@@ -29,13 +29,15 @@ class SignUpTest extends AuthorizedTestCase
      */
     public function testValidRequestData()
     {
-        $response = $this->json('post', '/api/v1/users', $this->generated_user_model);
+        if(!$this->skip_init) {
+            $response = $this->json('post', '/api/v1/users', $this->generated_user_model);
 
-        $content = json_decode($response->content());
+            $content = json_decode($response->content());
 
-        $this->assertNotEmpty($content->status, "Returned response has not valid content");
-        $this->assertEquals($content->status, "success","Response status is not successfully");
-        $response->assertStatus(201);
+            $this->assertNotEmpty($content->status, "Returned response has not valid content");
+            $this->assertEquals($content->status, "success", "Response status is not successfully");
+            $response->assertStatus(201);
+        }
     }
 
     /**

@@ -15,8 +15,6 @@ use Tests\TestCase;
 
 class CurrenciesTest extends AuthorizedTestCase
 {
-    use DatabaseMigrations;
-
     private $testable_from = "USD";
     private $testable_to = "UAH";
     private $testable_pair;

@@ -18,7 +18,11 @@ use Laravel\Cashier\Subscription;
 class CurrenciesController extends Controller
 {
     /**
-     * Build array of all currencies that is present in DB
+     * @description CURRENCY SOMETHING
+     *
+     * @summary
+     * HELLO MY FRIEND
+     *
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|\Symfony\Component\HttpFoundation\Response
      */
     public function getAll(){
@@ -46,7 +50,12 @@ class CurrenciesController extends Controller
     }
 
     /**
-     * Retrieve selected pair
+     *
+     * @summary
+     * Retrieve selected pair from controller
+     *
+     * @description
+     * CURRENCY SOMETHING
      *
      * @param GetPairAPIRequest $request
      * @param $pair
@@ -66,6 +75,7 @@ class CurrenciesController extends Controller
     }
 
     /**
+     * @summary
      * Convert currency into another currency
      *
      * @param ConvertCurrencyAPIRequest $request
@@ -99,6 +109,8 @@ class CurrenciesController extends Controller
 
 
     /**
+     *
+     * @summary
      * Get history of selected currency pair
      *
      * @param $pair
@@ -123,6 +135,8 @@ class CurrenciesController extends Controller
     }
 
     /**
+     *
+     * @summary
      * Returns response model with comparations data about main and comparable currency pairs.
      *
      * @param CompareCurrencyRequest $request
