@@ -237,46 +237,38 @@ class CustomSwaggerService
         $controller_annotations = $this->getConcreteControllerAnnotations();
 
 
-
-        if (empty($concreteRequest)) {
-            $this->item['description'] = '';
-
-            return;
-        }
-
-        {
+        if (!empty($concreteRequest)) {
             // HANDLE REQUEST ANNOTATION
             $annotations = $this->annotationReader->getClassAnnotations($concreteRequest);
-
 
             $this->saveParameters($concreteRequest, $annotations);
             $this->saveDescription($concreteRequest, $annotations);
         }
-        {
-            // HANDLE CONTROLLER ANNOTATION
+
+        if(!empty($controller_annotations)){
             $summary = $controller_annotations->get('summary');
             $this->item['summary'] = $summary;
 
+
             $descr = $controller_annotations->get('description');
-            $this->item['description'] = $descr;
-
-            /*$this->item['parameters'] = collect()->map(function ($param) use ($controller_annotations) {
-                if(!empty($controller_annotations->get($param->name))){
-                    $param->description = $controller_annotations->get($param->name);
-                }
-
-                return $param;
-            });*/
+            if(!empty($descr))
+                $this->item['description'] = $descr;
 
             foreach ($this->item['parameters'] as $key => $parameter){
-//                file_put_contents("swagger.log", "\nPARAMS $key: " . json_encode($parameter), 8);
-//                file_put_contents("swagger.log", "\nFOUND $key: " . json_encode($controller_annotations->get($parameter['name'])), 8);
-
                 if(!empty($controller_annotations->get($parameter['name']))){
                     $this->item['parameters'][$key]["description"] = $controller_annotations->get($parameter['name']);
+
+
+                    // TODO: REFACTOR THIS ?:
+//                    if(!empty($controller_annotations->get($parameter['name']."_example"))){
+//                        if(empty($this->item['parameters'][$key]["schema"]))
+//                            $this->item['parameters'][$key]["schema"] = ["example" => []];
+//
+//                        $this->item['parameters'][$key]["schema"]["example"]['default'] = $controller_annotations->get($parameter['name']."_example");
+//                    }
+
                 }
             }
-
         }
     }
 

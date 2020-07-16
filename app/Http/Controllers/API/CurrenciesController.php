@@ -108,11 +108,14 @@ class CurrenciesController extends Controller
         ]);
     }
 
-
     /**
-     *
      * @summary
      * Get history of selected currency pair
+     *
+     * @description
+     * Method returns data with history of changing selected currency pair
+     *
+     * @pair Selected currency pair, for ex. "USD"
      *
      * @param $pair
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|\Symfony\Component\HttpFoundation\Response
@@ -144,7 +147,13 @@ class CurrenciesController extends Controller
      * Method returns data about comparable pairs, like difference, direction, ascending or descending...
      *
      * @pair
-     * Part of URI that indicates system about main of comparable currency 111
+     * Part of URI that indicates system about main of comparable currency
+     *
+     * @pair_example
+     * USD
+     *
+     * @compare_to_example
+     * {"compare_to":"USD,EUR"}
      *
      * @param CompareCurrencyRequest $request
      * @param $main_currency

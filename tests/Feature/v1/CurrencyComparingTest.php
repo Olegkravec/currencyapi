@@ -44,7 +44,7 @@ class CurrencyComparingTest extends AuthorizedTestCase
         }
 
         $response = $this->json('get',"/api/v1/currencies/{$this->testable_from}/compare",[
-            'compare_to' => $this->testable_to
+            'compare_to' => $this->testable_to . ",RUB"
         ],[
             "Authorization" => "Bearer {$this->access_token}"
         ]);
