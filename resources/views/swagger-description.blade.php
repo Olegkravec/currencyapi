@@ -1,1 +1,1 @@
-This is automatically collected documentation
+My first LaravelAPI project documented by swagger service :)
