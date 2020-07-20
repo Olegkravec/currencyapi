@@ -53,7 +53,7 @@ class SubscriptionsResourceController extends Controller
      * Create new subscription
      *
      * @plan Stripe Plan ID that will be subscribed
-     *
+     * @body should contain json object with "plan" filed that should contain Stripe Plan ID
      * @header Authorization|required|JWT authorization token
      * @param StoreSubscriptionAPIRequest $request
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|\Symfony\Component\HttpFoundation\Response
@@ -140,7 +140,7 @@ class SubscriptionsResourceController extends Controller
      * @summary
      * Remove the specified subscription from storage.
      *
-     * @subscription subscription name that will be deleted
+     * @subscription subscription name that will be deleted(basic/premium)
      * @header Authorization|required|JWT authorization token
      * @param  int  $id
      * @return \Illuminate\Http\Response

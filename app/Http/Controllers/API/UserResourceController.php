@@ -42,6 +42,8 @@ class UserResourceController extends Controller
      * @password User's password like "ohMyPassword"
      * @password_confirmation User's password's confirmation, shoud be same as "password" field.
      *
+     * @body Should contain JSON object with this fields: name, email, password, password_confirmation
+     *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
@@ -131,9 +133,7 @@ class UserResourceController extends Controller
     /**
      * @summary Login user by email & password
      *
-     * @email Users email
-     * @password Users password
-     *
+     * @body Should contain JSON object with email and password fields
      * @param SignInAPIRequest $request
      * @return \Illuminate\Http\JsonResponse
      */

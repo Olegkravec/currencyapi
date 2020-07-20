@@ -55,6 +55,7 @@ class CurrenciesController extends Controller
      *
      * @description
      * Get history of selected pair
+     * @pair Currency pair that will be received
      *
      * @param GetPairAPIRequest $request
      * @param $pair

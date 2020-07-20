@@ -202,10 +202,10 @@ class CreateSubscriptionTest extends AuthorizedTestCase
 
 
     /**
-     * Create 2X same subscriptions
+     * Delete subscription by name
      * @throws \Stripe\Exception\ApiErrorException
      */
-    public function testCreateDuplicateSubscriptions()
+    public function testDeleteSubscription()
     {
         parent::createDefaultPaymentMethod();
         parent::createDefaultSubscription();
@@ -222,6 +222,42 @@ class CreateSubscriptionTest extends AuthorizedTestCase
         $this->assertNotEmpty($content->status, "Returned response is not valid(no status)");
         $this->assertNotEmpty($content->message, "Returned response is not valid(no message)");
         $this->assertNotEmpty($content->message->id, "Returned response is not valid(no deleted subscription id)");
+    }
+
+    /**
+     * Delete unknown subscription by name
+     * @throws \Stripe\Exception\ApiErrorException
+     */
+    public function testDeleteUnknownSubscription()
+    {
+        parent::createDefaultPaymentMethod();
+        parent::createDefaultSubscription();
+
+        {
+            // Delete once valid subscription
+            $response = $this->json('delete',"/api/v1/subscriptions/" . $this->subsiption_id,[],[
+                "Authorization" => "Bearer {$this->access_token}"
+            ]);
+            $content = json_decode($response->content());
+            $this->assertNotEmpty($content->status, "Returned response is not valid(no status)");
+            $this->assertNotEmpty($content->message, "Returned response is not valid(no message)");
+            $this->assertNotEmpty($content->message->id, "Returned response is not valid(no deleted subscription id)");
+        }
+
+
+        {
+            /**
+             * Delete same subscripion, that fas already deleted
+             */
+            $response = $this->json('delete',"/api/v1/subscriptions/" . $this->subsiption_id,[],[
+                "Authorization" => "Bearer {$this->access_token}"
+            ]);
+
+            $content = json_decode($response->content());
+            $this->assertNotEmpty($content->status, "Returned response is not valid(no status)");
+            $this->assertNotEmpty($content->message, "Returned response is not valid(no message)");
+            $this->assertEquals($content->status, "error", "Returned response should be errored, but received another status");
+        }
     }
 
 
