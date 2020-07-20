@@ -23,10 +23,10 @@ Route::group(['prefix' => 'v1'], function () {
     Route::post('/payments/methods', 'API\PaymentsAPIController@storeMethod')->name('payments.storeMethod')->middleware("auth:api");
 
     Route::get('/currencies', 'API\CurrenciesController@getAll')->name('currencies.all');
+    Route::get('/currencies/convert', 'API\CurrenciesController@convertPair')->name('currencies.convert');
     Route::get('/currencies/{pair}', 'API\CurrenciesController@getPair')->name('currencies.pair');
     Route::get('/currencies/{pair}/history', 'API\CurrenciesController@getPairHistory')->name('currencies.pairHistory');
     Route::get('/currencies/{pair}/compare', 'API\CurrenciesController@getPairsComparing')->name('currencies.pairComparing');
-    Route::post('/currencies/convert', 'API\CurrenciesController@convertPair')->name('currencies.convert');
 });
 
 

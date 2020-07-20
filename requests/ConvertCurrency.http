@@ -5,7 +5,7 @@
 # * 'ptr' and 'ptrp' create a POST request with a simple or parameter-like body;
 # * 'mptr' and 'fptr' create a POST request to submit a form with a text or file field (multipart/form-data);
 
-POST http://laravel.api/api/v1/currencies/convert
+GET http://laravel.api/api/v1/currencies/convert
 Content-Type: application/json
 
 {

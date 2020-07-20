@@ -29,6 +29,7 @@ abstract class AuthorizedTestCase extends TestCase
     protected $payment_method;
     protected $faker;
     protected $access_token;
+    protected $subsiption_id;
 
     public function setUp(): void
     {
@@ -117,5 +118,6 @@ abstract class AuthorizedTestCase extends TestCase
     public function createDefaultSubscription(){
         $this->assertNotEmpty($this->authorized_user, "Authorized user doesn't exist, but required");
         $result = $this->authorized_user->newSubscription("premium", env("STRIPE_PREMIUM_PLAN_ID"))->create($this->payment_method->id);
+        $this->subsiption_id = $result->name;
     }
 }

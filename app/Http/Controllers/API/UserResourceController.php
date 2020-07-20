@@ -34,7 +34,13 @@ class UserResourceController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * @summary
+     * Store a newly created user in storage.
+     *
+     * @name User's name like "Mr. Freeman"
+     * @email User's email like "freeman@mail.com"
+     * @password User's password like "ohMyPassword"
+     * @password_confirmation User's password's confirmation, shoud be same as "password" field.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -123,6 +129,11 @@ class UserResourceController extends Controller
 
 
     /**
+     * @summary Login user by email & password
+     *
+     * @email Users email
+     * @password Users password
+     *
      * @param SignInAPIRequest $request
      * @return \Illuminate\Http\JsonResponse
      */

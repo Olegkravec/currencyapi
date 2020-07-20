@@ -36,7 +36,7 @@ client.global.set("selected_plan", response.body.plans.data[0].id);
 ###
 
 
-POST http://laravel.api/api/v1/subscriptions
+POST http://laravel.api/api/v1/subscriptions?plan={{selected_plan}}
 Content-Type: application/json
 Authorization: Bearer {{bearer_token}}
 

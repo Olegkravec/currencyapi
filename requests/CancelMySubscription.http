@@ -9,7 +9,7 @@ POST http://laravel.api/api/v1/signin
 Content-Type: application/json
 
 {
-  "email": "wisoky.dejon@example.net",
+  "email": "iamadmin@gmail.com",
   "password": "password"
 }
 

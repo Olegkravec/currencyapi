@@ -7,6 +7,7 @@ use App\Http\Requests\API\StoreSubscriptionAPIRequest;
 use App\Http\Requests\StoreSubscriptionRequest;
 use App\Models\Responses\BaseResponseModel;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Cashier\Subscription;
 use Stripe\Plan;
@@ -15,8 +16,10 @@ use Stripe\Stripe;
 class SubscriptionsResourceController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * @summary
+     * Display a listing of the users subscriptions.
      *
+     * @header Authorization|required|JWT authorization token
      * @return \Illuminate\Http\Response
      */
     public function index()
@@ -46,8 +49,12 @@ class SubscriptionsResourceController extends Controller
 
 
     /**
+     * @summary
      * Create new subscription
      *
+     * @plan Stripe Plan ID that will be subscribed
+     *
+     * @header Authorization|required|JWT authorization token
      * @param StoreSubscriptionAPIRequest $request
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|\Symfony\Component\HttpFoundation\Response
      * @throws \Stripe\Exception\ApiErrorException
@@ -61,11 +68,13 @@ class SubscriptionsResourceController extends Controller
             return response([
                 "status" => "error",
                 "message" => "Should add payment method first",
-            ], 403);
+            ], Response::HTTP_FORBIDDEN);
         }
         Stripe::setApiKey(env("STRIPE_SECRET"));
         $plans = Plan::retrieve($request->validated()['plan']);
         $subscription_id = $plans->nickname;
+
+
 
         if ($user->subscribed($subscription_id)) {
             return response([
@@ -84,8 +93,10 @@ class SubscriptionsResourceController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * @summary
+     * Show the link to form for creating a new payment method.
      *
+     * @header Authorization|required|JWT authorization token
      * @return \Illuminate\Http\Response
      */
     public function create()
@@ -126,8 +137,11 @@ class SubscriptionsResourceController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * @summary
+     * Remove the specified subscription from storage.
      *
+     * @subscription subscription name that will be deleted
+     * @header Authorization|required|JWT authorization token
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -155,8 +169,10 @@ class SubscriptionsResourceController extends Controller
 
 
     /**
+     * @summary
      * Returns list of active plans from stripe service
      *
+     * @header Authorization|required|JWT authorization token
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      * @throws \Stripe\Exception\ApiErrorException
      */
@@ -168,6 +184,6 @@ class SubscriptionsResourceController extends Controller
         return response([
             "plans" => $plans,
             "status" => "Ok",
-        ], 202);
+        ], Response::HTTP_OK);
     }
 }
