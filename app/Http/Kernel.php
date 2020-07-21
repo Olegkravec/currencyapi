@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\AddCustomHeadersAPIMiddleware;
 use App\Http\Middleware\CustomAutoDocMiddleware;
 use App\Http\Middleware\PermissionFirewallMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
@@ -42,10 +43,10 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             'permission:null'
         ],
-
         'api' => [
             'throttle:60,1',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            AddCustomHeadersAPIMiddleware::class
         ],
     ];
 
