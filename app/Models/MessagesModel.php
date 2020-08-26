@@ -14,9 +14,6 @@ class MessagesModel extends Model
     }
 
     public function isMine(){
-        if($this->user_id === Auth::id())
-            return true;
-
-        return false;
+        return $this->user_id === Auth::id();
     }
 }

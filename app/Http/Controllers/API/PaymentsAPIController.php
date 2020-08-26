@@ -12,6 +12,7 @@ class PaymentsAPIController extends Controller
 {
     /**
      * Create  new payment intent
+     *
      * @header Authorization|required|JWT authorization token
      * @return array|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -37,6 +38,7 @@ class PaymentsAPIController extends Controller
      * @payment_method Stripe PaymentMethod ID that will be assigned to authenticated user
      *
      * @header Authorization|required|JWT authorization token
+     *
      * @param StorePaymentMethodRequest $request
      * @return \Illuminate\Http\JsonResponse
      */

@@ -168,7 +168,7 @@ class SubscriptionsResourceController extends Controller
     }
 
 
-    public function users_subscriptions($user_id){
+    public function usersSubscriptions($user_id){
         $user = User::find($user_id);
         if(empty($user)){
             flash("Unknown user")->error();

@@ -20,6 +20,7 @@ class SubscriptionsResourceController extends Controller
      * Display a listing of the users subscriptions.
      *
      * @header Authorization|required|JWT authorization token
+     *
      * @return \Illuminate\Http\Response
      */
     public function index()
@@ -83,8 +84,6 @@ class SubscriptionsResourceController extends Controller
             ], 403);
         }
 
-
-
         $result = $user->newSubscription($subscription_id, $request->validated()['plan'])->create($paymentMethod->id);
         return response([
             "status" => "success",
@@ -141,7 +140,9 @@ class SubscriptionsResourceController extends Controller
      * Remove the specified subscription from storage.
      *
      * @subscription subscription name that will be deleted(basic/premium)
+     *
      * @header Authorization|required|JWT authorization token
+     *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -173,6 +174,7 @@ class SubscriptionsResourceController extends Controller
      * Returns list of active plans from stripe service
      *
      * @header Authorization|required|JWT authorization token
+     *
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      * @throws \Stripe\Exception\ApiErrorException
      */

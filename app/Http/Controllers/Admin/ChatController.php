@@ -37,7 +37,7 @@ class ChatController extends Controller
      * @param $room_id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function chats_conversion($room_id){
+    public function chatsConversion($room_id){
         $room = RoomsModel::find($room_id);
         if(empty($room)){
             flash("Room not found")->error();
@@ -59,7 +59,7 @@ class ChatController extends Controller
      * @param $user_id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function new_conversion($user_id){
+    public function newConversion($user_id){
         $user = User::find($user_id);
         if(empty($user)){
             flash("User not found")->error();
@@ -111,7 +111,7 @@ class ChatController extends Controller
      * @param $room_id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function chats_invite($room_id){
+    public function chatsInvite($room_id){
         $room = RoomsModel::find($room_id);
 
 

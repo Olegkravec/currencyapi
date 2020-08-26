@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
 class ChatController extends Controller
 {
     /**
-     * Actually thats mathod that registers chat message event
+     * Actually thats method registers chat message event
      * @param FireMessageRequest $request
      * @param $room_id
      */

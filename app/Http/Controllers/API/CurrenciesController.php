@@ -20,8 +20,10 @@ class CurrenciesController extends Controller
     /**
      * @description
      * Receives arrays of currencies and pairs
+     *
      * @summary
      * Get all currency pair
+     *
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|\Symfony\Component\HttpFoundation\Response
      */
     public function getAll(){

@@ -33,9 +33,6 @@ use Illuminate\Http\Testing\File;
  * @package App\Services
  */
 
-
-
-
 class CustomSwaggerService
 {
     use GetDependenciesTrait;
@@ -256,8 +253,6 @@ class CustomSwaggerService
                 $this->item['description'] = $descr;
 
             foreach ($controller_annotations->getAsArray("header") as $key => $value){
-                file_put_contents("swagger_h.log", "\n F:\t" . json_encode([$key, $value]), 8);
-
                 // EXAMPLE: // @header Authorization|required|JWT authorization token
                 $parameterDefinition = [
                     'in' => 'header',

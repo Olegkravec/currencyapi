@@ -33,7 +33,7 @@ class UserPermissionsController extends Controller
      * @param $user_id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
-    public function permission_grant($user_id){
+    public function permissionGrant($user_id){
         if(empty($user = User::find($user_id))){
             flash("User is not exist")->error();
             return redirect()->back();
@@ -52,7 +52,7 @@ class UserPermissionsController extends Controller
      * @param $permission_id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function permission_create(GrantPermissionToUserRequest $request, $user_id, $permission_id){
+    public function permissionCreate(GrantPermissionToUserRequest $request, $user_id, $permission_id){
         $user = User::find($user_id);
         $user->givePermissionTo(Permission::find($permission_id));
 
@@ -68,7 +68,7 @@ class UserPermissionsController extends Controller
      * @param $permission_id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function permission_revoke(PermissionRevokeRequest $request, $user_id, $permission_id){
+    public function permissionRevoke(PermissionRevokeRequest $request, $user_id, $permission_id){
         $perm = Permission::find($permission_id);
         $user = User::find($user_id);
         $user->revokePermissionTo($perm);

@@ -134,6 +134,7 @@ class UserResourceController extends Controller
      * @summary Login user by email & password
      *
      * @body Should contain JSON object with email and password fields
+     *
      * @param SignInAPIRequest $request
      * @return \Illuminate\Http\JsonResponse
      */

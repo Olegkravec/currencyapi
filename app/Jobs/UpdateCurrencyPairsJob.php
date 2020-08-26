@@ -15,7 +15,8 @@ class UpdateCurrencyPairsJob implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     public $pair;
-    /**php artisan currency:update
+
+    /**
      * Create a new job instance.
      *
      * @return void
@@ -56,8 +57,5 @@ class UpdateCurrencyPairsJob implements ShouldQueue
         }
     }
 
-    public function failed(\Exception $exception)
-    {
-        // Отправить пользователю уведомление об ошибке, и т.п. ...
-    }
+    public function failed(\Exception $exception){}
 }
