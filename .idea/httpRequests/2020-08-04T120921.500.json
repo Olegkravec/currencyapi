@@ -1,0 +1,326 @@
+{
+    "message": "No API key provided.  (HINT: set your API key using \"Stripe::setApiKey(<API-KEY>)\".  You can generate API keys from the Stripe web interface.  See https://stripe.com/api for details, or email support@stripe.com if you have any questions.",
+    "exception": "Stripe\\Exception\\AuthenticationException",
+    "file": "C:\\Users\\Oleg\\PhpstormProjects\\laravelapi\\vendor\\stripe\\stripe-php\\lib\\ApiRequestor.php",
+    "line": 321,
+    "trace": [
+        {
+            "file": "C:\\Users\\Oleg\\PhpstormProjects\\laravelapi\\vendor\\stripe\\stripe-php\\lib\\ApiRequestor.php",
+            "line": 117,
+            "function": "_requestRaw",
+            "class": "Stripe\\ApiRequestor",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\Oleg\\PhpstormProjects\\laravelapi\\vendor\\stripe\\stripe-php\\lib\\ApiOperations\\Request.php",
+            "line": 63,
+            "function": "request",
+            "class": "Stripe\\ApiRequestor",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\Oleg\\PhpstormProjects\\laravelapi\\vendor\\stripe\\stripe-php\\lib\\ApiOperations\\Create.php",
+            "line": 25,
+            "function": "_staticRequest",
+            "class": "Stripe\\ApiResource",
+            "type": "::"
+        },
+        {
+            "file": "C:\\Users\\Oleg\\PhpstormProjects\\laravelapi\\vendor\\laravel\\cashier\\src\\Concerns\\ManagesCustomer.php",
+            "line": 70,
+            "function": "create",
+            "class": "Stripe\\Customer",
+            "type": "::"
+        },
+        {
+            "file": "C:\\Users\\Oleg\\PhpstormProjects\\laravelapi\\vendor\\laravel\\cashier\\src\\Concerns\\ManagesCustomer.php",
+            "line": 105,
+            "function": "createAsStripeCustomer",
+            "class": "App\\User",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\Oleg\\PhpstormProjects\\laravelapi\\app\\Http\\Controllers\\API\\UserResourceController.php",
+            "line": 63,
+            "function": "createOrGetStripeCustomer",
+            "class": "App\\User",
+            "type": "->"
+        },
+        {
+            "function": "store",
+            "class": "App\\Http\\Controllers\\API\\UserResourceController",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\Oleg\\PhpstormProjects\\laravelapi\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Controller.php",
+            "line": 54,
+            "function": "call_user_func_array"
+        },
+        {
+            "file": "C:\\Users\\Oleg\\PhpstormProjects\\laravelapi\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\ControllerDispatcher.php",
+            "line": 45,
+            "function": "callAction",
+            "class": "Illuminate\\Routing\\Controller",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\Oleg\\PhpstormProjects\\laravelapi\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php",
+            "line": 239,
+            "function": "dispatch",
+            "class": "Illuminate\\Routing\\ControllerDispatcher",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\Oleg\\PhpstormProjects\\laravelapi\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php",
+            "line": 196,
+            "function": "runController",
+            "class": "Illuminate\\Routing\\Route",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\Oleg\\PhpstormProjects\\laravelapi\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
+            "line": 685,
+            "function": "run",
+            "class": "Illuminate\\Routing\\Route",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\Oleg\\PhpstormProjects\\laravelapi\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
+            "line": 128,
+            "function": "Illuminate\\Routing\\{closure}",
+            "class": "Illuminate\\Routing\\Router",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\Oleg\\PhpstormProjects\\laravelapi\\app\\Http\\Middleware\\AddCustomHeadersAPIMiddleware.php",
+            "line": 20,
+            "function": "Illuminate\\Pipeline\\{closure}",
+            "class": "Illuminate\\Pipeline\\Pipeline",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\Oleg\\PhpstormProjects\\laravelapi\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
+            "line": 167,
+            "function": "handle",
+            "class": "App\\Http\\Middleware\\AddCustomHeadersAPIMiddleware",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\Oleg\\PhpstormProjects\\laravelapi\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\SubstituteBindings.php",
+            "line": 41,
+            "function": "Illuminate\\Pipeline\\{closure}",
+            "class": "Illuminate\\Pipeline\\Pipeline",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\Oleg\\PhpstormProjects\\laravelapi\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
+            "line": 167,
+            "function": "handle",
+            "class": "Illuminate\\Routing\\Middleware\\SubstituteBindings",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\Oleg\\PhpstormProjects\\laravelapi\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php",
+            "line": 59,
+            "function": "Illuminate\\Pipeline\\{closure}",
+            "class": "Illuminate\\Pipeline\\Pipeline",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\Oleg\\PhpstormProjects\\laravelapi\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
+            "line": 167,
+            "function": "handle",
+            "class": "Illuminate\\Routing\\Middleware\\ThrottleRequests",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\Oleg\\PhpstormProjects\\laravelapi\\vendor\\ronasit\\laravel-helpers\\src\\Middleware\\SecurityMiddleware.php",
+            "line": 33,
+            "function": "Illuminate\\Pipeline\\{closure}",
+            "class": "Illuminate\\Pipeline\\Pipeline",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\Oleg\\PhpstormProjects\\laravelapi\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
+            "line": 167,
+            "function": "handle",
+            "class": "RonasIT\\Support\\Middleware\\SecurityMiddleware",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\Oleg\\PhpstormProjects\\laravelapi\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
+            "line": 103,
+            "function": "Illuminate\\Pipeline\\{closure}",
+            "class": "Illuminate\\Pipeline\\Pipeline",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\Oleg\\PhpstormProjects\\laravelapi\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
+            "line": 687,
+            "function": "then",
+            "class": "Illuminate\\Pipeline\\Pipeline",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\Oleg\\PhpstormProjects\\laravelapi\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
+            "line": 662,
+            "function": "runRouteWithinStack",
+            "class": "Illuminate\\Routing\\Router",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\Oleg\\PhpstormProjects\\laravelapi\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
+            "line": 628,
+            "function": "runRoute",
+            "class": "Illuminate\\Routing\\Router",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\Oleg\\PhpstormProjects\\laravelapi\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
+            "line": 617,
+            "function": "dispatchToRoute",
+            "class": "Illuminate\\Routing\\Router",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\Oleg\\PhpstormProjects\\laravelapi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php",
+            "line": 165,
+            "function": "dispatch",
+            "class": "Illuminate\\Routing\\Router",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\Oleg\\PhpstormProjects\\laravelapi\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
+            "line": 128,
+            "function": "Illuminate\\Foundation\\Http\\{closure}",
+            "class": "Illuminate\\Foundation\\Http\\Kernel",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\Oleg\\PhpstormProjects\\laravelapi\\app\\Http\\Middleware\\CustomAutoDocMiddleware.php",
+            "line": 29,
+            "function": "Illuminate\\Pipeline\\{closure}",
+            "class": "Illuminate\\Pipeline\\Pipeline",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\Oleg\\PhpstormProjects\\laravelapi\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
+            "line": 167,
+            "function": "handle",
+            "class": "App\\Http\\Middleware\\CustomAutoDocMiddleware",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\Oleg\\PhpstormProjects\\laravelapi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php",
+            "line": 21,
+            "function": "Illuminate\\Pipeline\\{closure}",
+            "class": "Illuminate\\Pipeline\\Pipeline",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\Oleg\\PhpstormProjects\\laravelapi\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
+            "line": 167,
+            "function": "handle",
+            "class": "Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\Oleg\\PhpstormProjects\\laravelapi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php",
+            "line": 21,
+            "function": "Illuminate\\Pipeline\\{closure}",
+            "class": "Illuminate\\Pipeline\\Pipeline",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\Oleg\\PhpstormProjects\\laravelapi\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
+            "line": 167,
+            "function": "handle",
+            "class": "Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\Oleg\\PhpstormProjects\\laravelapi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize.php",
+            "line": 27,
+            "function": "Illuminate\\Pipeline\\{closure}",
+            "class": "Illuminate\\Pipeline\\Pipeline",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\Oleg\\PhpstormProjects\\laravelapi\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
+            "line": 167,
+            "function": "handle",
+            "class": "Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\Oleg\\PhpstormProjects\\laravelapi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\CheckForMaintenanceMode.php",
+            "line": 63,
+            "function": "Illuminate\\Pipeline\\{closure}",
+            "class": "Illuminate\\Pipeline\\Pipeline",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\Oleg\\PhpstormProjects\\laravelapi\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
+            "line": 167,
+            "function": "handle",
+            "class": "Illuminate\\Foundation\\Http\\Middleware\\CheckForMaintenanceMode",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\Oleg\\PhpstormProjects\\laravelapi\\vendor\\fruitcake\\laravel-cors\\src\\HandleCors.php",
+            "line": 37,
+            "function": "Illuminate\\Pipeline\\{closure}",
+            "class": "Illuminate\\Pipeline\\Pipeline",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\Oleg\\PhpstormProjects\\laravelapi\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
+            "line": 167,
+            "function": "handle",
+            "class": "Fruitcake\\Cors\\HandleCors",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\Oleg\\PhpstormProjects\\laravelapi\\vendor\\fideloper\\proxy\\src\\TrustProxies.php",
+            "line": 57,
+            "function": "Illuminate\\Pipeline\\{closure}",
+            "class": "Illuminate\\Pipeline\\Pipeline",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\Oleg\\PhpstormProjects\\laravelapi\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
+            "line": 167,
+            "function": "handle",
+            "class": "Fideloper\\Proxy\\TrustProxies",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\Oleg\\PhpstormProjects\\laravelapi\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
+            "line": 103,
+            "function": "Illuminate\\Pipeline\\{closure}",
+            "class": "Illuminate\\Pipeline\\Pipeline",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\Oleg\\PhpstormProjects\\laravelapi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php",
+            "line": 140,
+            "function": "then",
+            "class": "Illuminate\\Pipeline\\Pipeline",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\Oleg\\PhpstormProjects\\laravelapi\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php",
+            "line": 109,
+            "function": "sendRequestThroughRouter",
+            "class": "Illuminate\\Foundation\\Http\\Kernel",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\Oleg\\PhpstormProjects\\laravelapi\\public\\index.php",
+            "line": 55,
+            "function": "handle",
+            "class": "Illuminate\\Foundation\\Http\\Kernel",
+            "type": "->"
+        }
+    ]
+}

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import LoginComponent from '../components/Users/LoginComponent.vue'
+import ChatsIndex from "@/components/ChatsIndex/ChatsIndex";
 
 Vue.use(VueRouter)
 
@@ -15,6 +16,11 @@ Vue.use(VueRouter)
     path: '/login',
     name: 'Login',
     component: LoginComponent
+  },
+  {
+    path: '/chats',
+    name: 'All chats',
+      component: ChatsIndex
   },
   {
     path: '/about',

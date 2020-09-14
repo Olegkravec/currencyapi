@@ -29,4 +29,8 @@ Route::group(['prefix' => 'v1'], function () {
     Route::get('/currencies/{pair}/compare', 'API\CurrenciesController@getPairsComparing')->name('currencies.pairComparing');
 });
 
+Route::group(['prefix' => 'v2'], function () {
+    Route::resource("chats", "API\\v2\ChatResourceController")->middleware("auth:api");
+});
+
 

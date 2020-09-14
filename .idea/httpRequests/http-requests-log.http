@@ -1,0 +1,437 @@
+POST http://laravel.api/api/v1/signin
+Content-Type: application/json
+
+{
+  "email": "iamadmin@gmail.com",
+  "password": "password"
+}
+
+<> 2020-09-11T050747.200.json
+
+###
+
+POST http://laravel.api/api/v1/signin
+Content-Type: application/json
+
+{
+  "email": "iamadmin@gmail.com",
+  "password": "password"
+}
+
+<> 2020-09-11T050730.200.json
+
+###
+
+POST http://laravel.api/api/v1/signin
+Content-Type: application/json
+
+{
+  "email": "iamadmin@gmail.com",
+  "password": "password"
+}
+
+<> 2020-09-11T050655.200.html
+
+###
+
+POST http://laravel.api/api/v1/signin
+Content-Type: application/json
+
+{
+  "email": "iamadmin@gmail.com",
+  "password": "password"
+}
+
+###
+
+POST http://laravel.api/api/v1/signin
+Content-Type: application/json
+
+{
+  "email": "iamadmin@gmail.com",
+  "password": "password"
+}
+
+<> 2020-09-11T050547.200.json
+
+###
+
+GET http://laravel.api/api/v1/chats
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sYXJhdmVsLmFwaVwvYXBpXC92MVwvc2lnbmluIiwiaWF0IjoxNTk2NTM3NjU4LCJleHAiOjE1OTY1NDEyNTgsIm5iZiI6MTU5NjUzNzY1OCwianRpIjoiNGp2Rm1UWU5WNEhOY2xBNyIsInN1YiI6MSwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.Ck4LDKCc-K7N_lpTcGiigbfpT89vbYnNZetRRiDaW0g
+
+<> 2020-08-04T014407.200.json
+
+###
+
+GET http://laravel.api/api/v1/chats
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sYXJhdmVsLmFwaVwvYXBpXC92MVwvc2lnbmluIiwiaWF0IjoxNTk2NTM3NjU4LCJleHAiOjE1OTY1NDEyNTgsIm5iZiI6MTU5NjUzNzY1OCwianRpIjoiNGp2Rm1UWU5WNEhOY2xBNyIsInN1YiI6MSwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.Ck4LDKCc-K7N_lpTcGiigbfpT89vbYnNZetRRiDaW0g
+
+<> 2020-08-04T014354.200.html
+
+###
+
+GET http://laravel.api/api/v1/chats
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sYXJhdmVsLmFwaVwvYXBpXC92MVwvc2lnbmluIiwiaWF0IjoxNTk2NTM3NjU4LCJleHAiOjE1OTY1NDEyNTgsIm5iZiI6MTU5NjUzNzY1OCwianRpIjoiNGp2Rm1UWU5WNEhOY2xBNyIsInN1YiI6MSwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.Ck4LDKCc-K7N_lpTcGiigbfpT89vbYnNZetRRiDaW0g
+
+<> 2020-08-04T014324.403.json
+
+###
+
+GET http://laravel.api/api/v1/chats
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sYXJhdmVsLmFwaVwvYXBpXC92MVwvc2lnbmluIiwiaWF0IjoxNTk2NTM3NjU4LCJleHAiOjE1OTY1NDEyNTgsIm5iZiI6MTU5NjUzNzY1OCwianRpIjoiNGp2Rm1UWU5WNEhOY2xBNyIsInN1YiI6MSwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.Ck4LDKCc-K7N_lpTcGiigbfpT89vbYnNZetRRiDaW0g
+
+<> 2020-08-04T014303.403.html
+
+###
+
+GET http://laravel.api/api/v1/chats
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sYXJhdmVsLmFwaVwvYXBpXC92MVwvc2lnbmluIiwiaWF0IjoxNTk2NTM3NjU4LCJleHAiOjE1OTY1NDEyNTgsIm5iZiI6MTU5NjUzNzY1OCwianRpIjoiNGp2Rm1UWU5WNEhOY2xBNyIsInN1YiI6MSwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.Ck4LDKCc-K7N_lpTcGiigbfpT89vbYnNZetRRiDaW0g
+
+<> 2020-08-04T014104.403.html
+
+###
+
+POST http://laravel.api/api/v1/signin
+Content-Type: application/json
+
+{
+  "email": "iamadmin@gmail.com",
+  "password": "password"
+}
+
+<> 2020-08-04T014058.200.json
+
+###
+
+POST http://laravel.api/api/v1/subscriptions?plan=price_1H0jHTIuxB8cKoiu0l3gMMEP
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sYXJhdmVsLmFwaVwvYXBpXC92MVwvc2lnbmluIiwiaWF0IjoxNTk2NTMzMTc4LCJleHAiOjE1OTY1MzY3NzgsIm5iZiI6MTU5NjUzMzE3OCwianRpIjoicXBNSXJFNjljaWlaNDdnWiIsInN1YiI6MSwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.jtqgfm_rq6xC6FJo8h1B-gu4v6C2wI1x7tvmTsSD3K0
+
+{
+  "plan": "price_1H0jHTIuxB8cKoiu0l3gMMEP"
+}
+
+<> 2020-08-04T122620.403.json
+
+###
+
+GET http://laravel.api/api/v1/subscriptions/plans
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sYXJhdmVsLmFwaVwvYXBpXC92MVwvc2lnbmluIiwiaWF0IjoxNTk2NTMzMTc4LCJleHAiOjE1OTY1MzY3NzgsIm5iZiI6MTU5NjUzMzE3OCwianRpIjoicXBNSXJFNjljaWlaNDdnWiIsInN1YiI6MSwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.jtqgfm_rq6xC6FJo8h1B-gu4v6C2wI1x7tvmTsSD3K0
+
+<> 2020-08-04T122619.200.json
+
+###
+
+POST http://laravel.api/api/v1/signin
+Content-Type: application/json
+
+{
+  "email": "iamadmin@gmail.com",
+  "password": "password"
+}
+
+<> 2020-08-04T122618.200.json
+
+###
+
+POST http://laravel.api/api/v1/subscriptions?plan=price_1H0jHTIuxB8cKoiu0l3gMMEP
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sYXJhdmVsLmFwaVwvYXBpXC92MVwvc2lnbmluIiwiaWF0IjoxNTk2NTMzMTEzLCJleHAiOjE1OTY1MzY3MTMsIm5iZiI6MTU5NjUzMzExMywianRpIjoiSG8yN2VKN09EMjFEZlpvRiIsInN1YiI6MSwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.oMCeUPrMjGebPTv2bCybrkrCDh1FdkFXNEw4HUhqq4A
+
+{
+  "plan": "price_1H0jHTIuxB8cKoiu0l3gMMEP"
+}
+
+<> 2020-08-04T122521.403.json
+
+###
+
+GET http://laravel.api/api/v1/subscriptions/plans
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sYXJhdmVsLmFwaVwvYXBpXC92MVwvc2lnbmluIiwiaWF0IjoxNTk2NTMzMTEzLCJleHAiOjE1OTY1MzY3MTMsIm5iZiI6MTU5NjUzMzExMywianRpIjoiSG8yN2VKN09EMjFEZlpvRiIsInN1YiI6MSwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.oMCeUPrMjGebPTv2bCybrkrCDh1FdkFXNEw4HUhqq4A
+
+<> 2020-08-04T122517.200.json
+
+###
+
+POST http://laravel.api/api/v1/signin
+Content-Type: application/json
+
+{
+  "email": "iamadmin@gmail.com",
+  "password": "password"
+}
+
+<> 2020-08-04T122513.200.json
+
+###
+
+GET http://laravel.api/api/v1/subscriptions
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sYXJhdmVsLmFwaVwvYXBpXC92MVwvc2lnbmluIiwiaWF0IjoxNTk2NTMzMDgxLCJleHAiOjE1OTY1MzY2ODEsIm5iZiI6MTU5NjUzMzA4MSwianRpIjoiOTdaaUh6dE5rdm8wN2I4TiIsInN1YiI6MSwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.1V0-UsNkvVoIrlQaQq8vbL_UKBLXprpFnIUCSziVE7o
+
+<> 2020-08-04T122446.200.json
+
+###
+
+POST http://laravel.api/api/v1/signin
+Content-Type: application/json
+
+{
+  "email": "iamadmin@gmail.com",
+  "password": "password"
+}
+
+<> 2020-08-04T122441.200.json
+
+###
+
+POST http://laravel.api/api/v1/users
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Oleg",
+  "email": "24iamadmin12@gmail.com",
+  "password": "password",
+  "password_confirmation": "password"
+}
+
+<> 2020-08-04T121037.201.json
+
+###
+
+POST http://laravel.api/api/v1/users
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Oleg",
+  "email": "4iamadmin12@gmail.com",
+  "password": "password",
+  "password_confirmation": "password"
+}
+
+<> 2020-08-04T121010.400.json
+
+###
+
+POST http://laravel.api/api/v1/users
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Oleg",
+  "email": "4iamadmin12@gmail.com",
+  "password": "password",
+  "password_confirmation": "password"
+}
+
+<> 2020-08-04T120921.500.json
+
+###
+
+GET http://laravel.api/api/v1/currencies/convert
+Content-Type: application/json
+
+{
+  "from": "USD",
+  "to": "UAH",
+  "amount": 1010101
+}
+
+<> 2020-08-04T120827.200.json
+
+###
+
+GET http://laravel.api/api/v1/currencies/convert
+Content-Type: application/json
+
+{
+  "from": "USD",
+  "to": "UAH",
+  "amount": 1010101
+}
+
+<> 2020-08-04T120753.200.json
+
+###
+
+GET http://laravel.api/api/v1/currencies/convert
+Content-Type: application/json
+
+{
+  "from": "USD",
+  "to": "UAH",
+  "amount": 1010101
+}
+
+<> 2020-08-04T120726.200.json
+
+###
+
+GET http://laravel.api/api/v1/currencies/convert
+Content-Type: application/json
+
+{
+  "from": "USD",
+  "to": "RUB",
+  "amount": 1010101
+}
+
+<> 2020-08-04T120621.200.json
+
+###
+
+GET http://laravel.api/api/v1/currencies/convert
+Content-Type: application/json
+
+{
+  "from": "asd",
+  "to": "RUB",
+  "amount": 1010101
+}
+
+<> 2020-08-04T120616.200.json
+
+###
+
+GET http://laravel.api/api/v1/currencies/convert
+Content-Type: application/json
+
+{
+  "from": "USD",
+  "to": "RUB",
+  "amount": 1010101
+}
+
+<> 2020-08-04T120448.200.json
+
+###
+
+GET http://laravel.api/api/v1/currencies/convert
+Content-Type: application/json
+
+{
+  "from": "RUB",
+  "to": "PLN",
+  "amount": 1010101
+}
+
+<> 2020-08-04T120423.500.html
+
+###
+
+GET http://laravel.api/api/v1/currencies/convert
+Content-Type: application/json
+
+{
+  "from": "RUB",
+  "to": "UAH",
+  "amount": 1010101
+}
+
+<> 2020-08-04T120142.200.html
+
+###
+
+GET http://laravel.api/api/v1/currencies/convert
+Content-Type: application/json
+
+{
+  "from": "RUB",
+  "to": "USD",
+  "amount": 1010101
+}
+
+<> 2020-08-04T120129.200.json
+
+###
+
+GET http://laravel.api/api/v1/currencies/convert
+Content-Type: application/json
+
+{
+  "from": "RUB",
+  "to": "USD",
+  "amount": 1010101
+}
+
+<> 2020-08-04T120009.500.html
+
+###
+
+GET http://laravel.api/api/v1/currencies/convert
+Content-Type: application/json
+
+{
+  "from": "RUB",
+  "to": "EUR",
+  "amount": 1010101
+}
+
+<> 2020-08-04T120001.200.json
+
+###
+
+GET http://laravel.api/api/v1/currencies/convert
+Content-Type: application/json
+
+{
+  "from": "RUB",
+  "to": "EUR",
+  "amount": 101010
+}
+
+<> 2020-08-04T115951.200.json
+
+###
+
+GET http://laravel.api/api/v1/currencies/convert
+Content-Type: application/json
+
+{
+  "from": "RUB",
+  "to": "EUR",
+  "amount": 101010
+}
+
+<> 2020-08-04T115942.200.json
+
+###
+
+GET http://laravel.api/api/v1/currencies/convert
+Content-Type: application/json
+
+{
+  "from": "RUB",
+  "to": "EUR",
+  "amount": 101010
+}
+
+<> 2020-08-04T115754.500.html
+
+###
+
+GET http://laravel.api/api/v1/currencies/convert
+Content-Type: application/json
+
+{
+  "from": "RUB",
+  "to": "EUR",
+  "amount": 101010
+}
+
+<> 2020-08-04T115532.500.html
+
+###
+
